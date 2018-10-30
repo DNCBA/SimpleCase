@@ -1,8 +1,16 @@
 package com.mhc.jdbc;
 
-public class User {
+import com.baidu.bjf.remoting.protobuf.FieldType;
+import com.baidu.bjf.remoting.protobuf.annotation.Protobuf;
+
+import java.io.Serializable;
+
+public class User  implements Serializable {
+    @Protobuf(fieldType= FieldType.INT32,required = false,order = 1)
     private Integer id;
+    @Protobuf(fieldType= FieldType.STRING,required = false,order = 2)
     private String name;
+    @Protobuf(fieldType= FieldType.INT32,required = false,order = 3)
     private Integer age;
 
     @Override
