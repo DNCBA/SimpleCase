@@ -1,11 +1,14 @@
 # 常见用例
 
 ----------
+1. jdbc连接
+    > com.mhc.jdbc
 
-1. 网络通讯
+2. 网络通讯
+    > com.mhc.socket
+    
+3. 序列化
 
-2. 序列化
+4. rpc框架之rmi
 
-3. rpc框架之rmi
-
-4. rpc框架之webservice
+5. rpc框架之webservice
