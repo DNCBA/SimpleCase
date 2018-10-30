@@ -11,5 +11,6 @@
     > com.mhc.serizlize
     
 4. rpc框架之rmi
-
+    > com.mhc.rmi
+    
 5. rpc框架之webservice
