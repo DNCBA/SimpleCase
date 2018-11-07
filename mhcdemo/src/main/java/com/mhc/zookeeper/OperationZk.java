@@ -1,13 +1,11 @@
 package com.mhc.zookeeper;
 
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class OperationZk {
@@ -28,17 +26,24 @@ public class OperationZk {
         String url = "114.116.67.84:2181";
         String password = "IOT@POC$2018";
         Integer timeout = 40000;
+        CountDownLatch countDownLatch = new CountDownLatch(1);
         ZooKeeper zooKeeper = new ZooKeeper(url,timeout,(watchedEvent)->{
-            Watcher.Event.EventType type = watchedEvent.getType();
-            System.out.println("Event TYPE :"+type);
+            if(watchedEvent.getState()==Watcher.Event.KeeperState.SyncConnected) {
+                if (Watcher.Event.EventType.None == watchedEvent.getType() && null == watchedEvent.getPath()) {
+                    countDownLatch.countDown();
+                    System.out.println(watchedEvent.getState() + "-->" + watchedEvent.getType());
+                }
+            }
         });
 
+
+        countDownLatch.await();
         ZooKeeper.States state = zooKeeper.getState();
         System.out.println("zookeeper state: " + state);
 
-        TimeUnit.SECONDS.sleep(5);
+
         //增加操作
-        String result = zooKeeper.create("/mhc", "is my first zNode".getBytes(), null, CreateMode.PERSISTENT);
+        String result = zooKeeper.create("/mhc", "is my first zNode".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         System.out.println("----------------> create" + result);
         TimeUnit.SECONDS.sleep(5);
         //修改操作
@@ -53,9 +58,6 @@ public class OperationZk {
         zooKeeper.delete("/mhc",-1);
         System.out.println("----------------> delete");
         TimeUnit.SECONDS.sleep(5);
-
-
-
 
     }
 
