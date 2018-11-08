@@ -1,5 +1,6 @@
 package com.mhc.zookeeper;
 
+import org.I0Itec.zkclient.ZkClient;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.testng.annotations.Test;
@@ -14,14 +15,35 @@ public class OperationZk {
     public static void main(String[] args) throws Exception {
 
         //使用原生操作
-        CRUDZookeeper();
+        CRUDZookeeperToJava();
 
-
+        //使用zkClient操作
+        CRUDZookeeperToZkCli();
 
     }
 
     @Test
-    private static void CRUDZookeeper() throws Exception {
+    private static void CRUDZookeeperToZkCli() {
+        //创建客户端
+        String url = "114.116.67.84:2181";
+        ZkClient zkClient = new ZkClient(url,2000);
+        //增加
+        String result = zkClient.create("/aaa", "zkClient".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);
+        System.out.println("------------> crete" + result);
+        //修改
+        zkClient.writeData("/aaa","zklient update");
+        System.out.println("------------> update " );
+        //查询
+        Object data = zkClient.readData("/aaa");
+        System.out.println("------------> read " + data );
+        //删除
+        boolean b = zkClient.delete("/aaa");
+        System.out.println("------------> delete " + b );
+
+    }
+
+    @Test
+    private static void CRUDZookeeperToJava() throws Exception {
         //创建客户端
         String url = "114.116.67.84:2181";
         String password = "IOT@POC$2018";
