@@ -1,6 +1,12 @@
 package com.mhc.zookeeper;
 
 import org.I0Itec.zkclient.ZkClient;
+import org.apache.curator.CuratorZookeeperClient;
+import org.apache.curator.RetryPolicy;
+import org.apache.curator.RetrySleeper;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.testng.annotations.Test;
@@ -16,9 +22,35 @@ public class OperationZk {
 
         //使用原生操作
         CRUDZookeeperToJava();
-
+        System.out.println("原生API操作");
         //使用zkClient操作
         CRUDZookeeperToZkCli();
+        System.out.println("ZKClient操作");
+        //使用curator操作
+        CRUDZookeeperToCurator();
+        System.out.println("Curator操作");
+
+    }
+
+    @Test
+    private static void CRUDZookeeperToCurator() throws Exception {
+        //创建客户端
+        String url = "114.116.67.84:2181";
+
+        CuratorFramework curatorFramework = CuratorFrameworkFactory.
+                newClient(url, 5000, 5000, new ExponentialBackoffRetry(1000,3));
+        curatorFramework.start();
+        //增加
+        String result = curatorFramework.create().creatingParentsIfNeeded().forPath("/cruator", "is a cruator".getBytes());
+        System.out.println("--------> create " + result);
+        //修改
+        Stat stat = curatorFramework.setData().forPath("/cruator", "update a curator".getBytes());
+        System.out.println("---------> update" + stat);
+        //查询
+        byte[] bytes = curatorFramework.getData().forPath("/cruator");
+        System.out.println("---------> find" + new String(bytes));
+        //删除
+        curatorFramework.delete().forPath("/cruator");
 
     }
 
@@ -67,19 +99,15 @@ public class OperationZk {
         //增加操作
         String result = zooKeeper.create("/mhc", "is my first zNode".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
         System.out.println("----------------> create" + result);
-        TimeUnit.SECONDS.sleep(5);
         //修改操作
         Stat stat = zooKeeper.setData("/mhc", "data is update".getBytes(), -1);
         System.out.println("----------------> update" + stat);
-        TimeUnit.SECONDS.sleep(5);
         //查询操作
         byte[] data = zooKeeper.getData("/mhc", null, null);
         System.out.println("----------------> find" + new String(data));
-        TimeUnit.SECONDS.sleep(5);
         //删除操作
         zooKeeper.delete("/mhc",-1);
         System.out.println("----------------> delete");
-        TimeUnit.SECONDS.sleep(5);
 
     }
 
