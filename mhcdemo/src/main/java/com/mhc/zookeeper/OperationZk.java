@@ -1,9 +1,6 @@
 package com.mhc.zookeeper;
 
 import org.I0Itec.zkclient.ZkClient;
-import org.apache.curator.CuratorZookeeperClient;
-import org.apache.curator.RetryPolicy;
-import org.apache.curator.RetrySleeper;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -11,10 +8,13 @@ import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 普通操作zk的方法
+ */
 public class OperationZk {
 
 
@@ -85,9 +85,9 @@ public class OperationZk {
             if(watchedEvent.getState()==Watcher.Event.KeeperState.SyncConnected) {
                 if (Watcher.Event.EventType.None == watchedEvent.getType() && null == watchedEvent.getPath()) {
                     countDownLatch.countDown();
-                    System.out.println(watchedEvent.getState() + "-->" + watchedEvent.getType());
                 }
             }
+            System.out.println("Watcher--------> " + watchedEvent.getType());
         });
 
 
@@ -97,17 +97,23 @@ public class OperationZk {
 
 
         //增加操作
-        String result = zooKeeper.create("/mhc", "is my first zNode".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        zooKeeper.exists("/mhc", true);
+        String result = zooKeeper.create("/mhc", "is my first zNode".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
         System.out.println("----------------> create" + result);
+        TimeUnit.SECONDS.sleep(5);
+        //查询操作
+        byte[] data = zooKeeper.getData("/mhc", true, null);
+        System.out.println("----------------> find" + new String(data));
+        TimeUnit.SECONDS.sleep(5);
         //修改操作
         Stat stat = zooKeeper.setData("/mhc", "data is update".getBytes(), -1);
         System.out.println("----------------> update" + stat);
-        //查询操作
-        byte[] data = zooKeeper.getData("/mhc", null, null);
-        System.out.println("----------------> find" + new String(data));
+        TimeUnit.SECONDS.sleep(5);
         //删除操作
+        zooKeeper.exists("/mhc", true);
         zooKeeper.delete("/mhc",-1);
         System.out.println("----------------> delete");
+        TimeUnit.SECONDS.sleep(5);
 
     }
 
