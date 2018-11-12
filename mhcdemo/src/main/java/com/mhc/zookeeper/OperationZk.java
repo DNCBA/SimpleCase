@@ -3,6 +3,7 @@ package com.mhc.zookeeper;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
@@ -40,17 +41,44 @@ public class OperationZk {
         CuratorFramework curatorFramework = CuratorFrameworkFactory.
                 newClient(url, 5000, 5000, new ExponentialBackoffRetry(1000,3));
         curatorFramework.start();
+
+
+        //监听节点数据变化
+        NodeCache nodeCache = new NodeCache(curatorFramework,"/cruator");
+        nodeCache.start();
+        nodeCache.getListenable().addListener(new NodeCacheListener() {
+            @Override
+            public void nodeChanged() throws Exception {
+                System.out.println("NODE:/cruator -------> " + new String(nodeCache.getCurrentData().getData()));
+            }
+        });
+
+        //监听子节点相关变化
+        PathChildrenCache childrenCache = new PathChildrenCache(curatorFramework, "/", true);
+        childrenCache.start();
+        childrenCache.getListenable().addListener(new PathChildrenCacheListener() {
+            @Override
+            public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
+                System.out.println("PATH: ------> " + pathChildrenCacheEvent.getType());
+            }
+        });
+
+
         //增加
         String result = curatorFramework.create().creatingParentsIfNeeded().forPath("/cruator", "is a cruator".getBytes());
         System.out.println("--------> create " + result);
+        TimeUnit.SECONDS.sleep(5);
         //修改
         Stat stat = curatorFramework.setData().forPath("/cruator", "update a curator".getBytes());
         System.out.println("---------> update" + stat);
+        TimeUnit.SECONDS.sleep(5);
         //查询
         byte[] bytes = curatorFramework.getData().forPath("/cruator");
         System.out.println("---------> find" + new String(bytes));
+        TimeUnit.SECONDS.sleep(5);
         //删除
         curatorFramework.delete().forPath("/cruator");
+        TimeUnit.SECONDS.sleep(5);
 
     }
 
@@ -60,6 +88,7 @@ public class OperationZk {
         String url = "114.116.67.84:2181";
         ZkClient zkClient = new ZkClient(url,2000);
         //增加
+
         String result = zkClient.create("/aaa", "zkClient".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.PERSISTENT);
         System.out.println("------------> crete" + result);
         //修改
