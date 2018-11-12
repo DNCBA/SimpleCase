@@ -46,22 +46,12 @@ public class OperationZk {
         //监听节点数据变化
         NodeCache nodeCache = new NodeCache(curatorFramework,"/cruator");
         nodeCache.start();
-        nodeCache.getListenable().addListener(new NodeCacheListener() {
-            @Override
-            public void nodeChanged() throws Exception {
-                System.out.println("NODE:/cruator -------> " + new String(nodeCache.getCurrentData().getData()));
-            }
-        });
+        nodeCache.getListenable().addListener(() -> System.out.println("NODE:/cruator -------> " + new String(nodeCache.getCurrentData().getData())));
 
         //监听子节点相关变化
         PathChildrenCache childrenCache = new PathChildrenCache(curatorFramework, "/", true);
         childrenCache.start();
-        childrenCache.getListenable().addListener(new PathChildrenCacheListener() {
-            @Override
-            public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent pathChildrenCacheEvent) throws Exception {
-                System.out.println("PATH: ------> " + pathChildrenCacheEvent.getType());
-            }
-        });
+        childrenCache.getListenable().addListener((curatorFramework1, pathChildrenCacheEvent) -> System.out.println("PATH:"+pathChildrenCacheEvent.getData().getPath()+" ------> " + pathChildrenCacheEvent.getType()));
 
 
         //增加
@@ -107,7 +97,6 @@ public class OperationZk {
     private static void CRUDZookeeperToJava() throws Exception {
         //创建客户端
         String url = "114.116.67.84:2181";
-        String password = "IOT@POC$2018";
         Integer timeout = 40000;
         CountDownLatch countDownLatch = new CountDownLatch(1);
         ZooKeeper zooKeeper = new ZooKeeper(url,timeout,(watchedEvent)->{
