@@ -8,6 +8,7 @@ import org.apache.zookeeper.CreateMode;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class SimpleMessageQueue {
 
@@ -16,12 +17,12 @@ public class SimpleMessageQueue {
     private static final String path = mRoot+"/"+"message";
     private static final String url = "114.116.67.84:2181";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         //测试基于zk的分布式消息队列
         testMessageQueue();
     }
 
-    private static void testMessageQueue() {
+    private static void testMessageQueue() throws InterruptedException {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -34,17 +35,20 @@ public class SimpleMessageQueue {
                 } catch (Exception e) {
                     System.out.println("----------------->" + "message send error");
                 }
-
-
+            });
+        }
+        TimeUnit.SECONDS.sleep(10);
+        for (int i = 0 ;i <5;i++){
+            executorService.submit(()->{
                 try {
                     getMessage();
                 } catch (Exception e) {
                     System.out.println("----------------->" + "message get error");
+                    e.printStackTrace();
                 }
-
-
             });
         }
+
 
 
 
@@ -56,18 +60,20 @@ public class SimpleMessageQueue {
         CuratorFramework client = CuratorFrameworkFactory.newClient(url, new ExponentialBackoffRetry(1000, 3));
         client.start();
         while (true) {
-            String result = client.getChildren().forPath(mRoot).get(0);
-            String msgPath = mRoot + "/" + result;
-            String data = new String(client.getData().forPath(msgPath));
+            if (client.getChildren().forPath(mRoot).size() <= 0) {
+                continue;
+            }
+
             try {
+                String result = client.getChildren().forPath(mRoot).get(0);
+                String msgPath = mRoot + "/" + result;
+                String data = new String(client.getData().forPath(msgPath));
                 client.delete().forPath(msgPath);
                 System.out.println(Thread.currentThread().getName() + ":消费者 get message -------> " + data);
             } catch (Exception e) {
                 System.out.println(Thread.currentThread().getName() + "<------- 消费失败");
             }
         }
-
-
     }
 
     private static void putMessage() throws Exception {
