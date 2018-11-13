@@ -6,6 +6,7 @@ import com.baidu.bjf.remoting.protobuf.ProtobufProxy;
 import com.caucho.hessian.io.HessianOutput;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mhc.jdbc.User;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 
 import java.io.*;
@@ -34,12 +35,16 @@ public class Serialize {
         testJackson();
         //fastjson序列化
         testFastjson();
+        //json序列化
+        testJson();
         //hessian序列化
         testHessian();
         //protobuf序列化
         testProtobuf();
 
     }
+
+
 
     @Test
     private void testProtobuf() throws IOException {
@@ -78,6 +83,17 @@ public class Serialize {
 
         //反序列化
         //Object object = JSON.parse(bytes);
+    }
+
+    @Test
+    private void testJson() {
+        long begain = System.currentTimeMillis();
+        JSONObject jsonObject = new JSONObject(user);
+        String result = jsonObject.toString();
+        long end = System.currentTimeMillis();
+        System.out.println("json:"+result.getBytes().length+"-------------->  time:"+(end-begain));
+
+        //JSONObject jsonObject1 = new JSONObject(result);
     }
 
     @Test
