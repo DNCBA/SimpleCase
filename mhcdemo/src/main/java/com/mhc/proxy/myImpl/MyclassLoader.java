@@ -13,7 +13,7 @@ public class MyclassLoader extends ClassLoader {
         while ((len = inputStream.read(bytes)) !=  -1){
             outputStream.write(bytes,0,len);
         }
-        file.delete();
-        return defineClass("$Proxy0.class",outputStream.toByteArray(),0,outputStream.size());
+
+        return defineClass("com.mhc.proxy.myImpl.$Proxy0",outputStream.toByteArray(),0,outputStream.size());
     }
 }

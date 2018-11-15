@@ -44,7 +44,7 @@ public class MyProxy {
         //4.将编译后的文件加载
         Class clazz = load(file,loader);
         //5.根据class对象进行实例化，并返回
-        Object instance = clazz.newInstance();
+        Object instance = clazz.getConstructor(MyInvocationHandler.class).newInstance(h);
         return instance;
     }
 
@@ -96,9 +96,6 @@ public class MyProxy {
             src.append("}" + ln);
         }
         src.append("}");
-
-        System.out.println(src.toString());
-
         return src.toString();
     }
 
