@@ -1,6 +1,6 @@
 package com.mhc.proxy.myImpl;
 
-import com.mhc.proxy.FunctionImpl;
+import com.mhc.proxy.SupplierImpl;
 
 import javax.tools.JavaCompiler;
 import javax.tools.StandardJavaFileManager;
@@ -8,7 +8,6 @@ import javax.tools.ToolProvider;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
@@ -16,10 +15,10 @@ public class MyProxy {
 
     public static void main(String[] args) throws Exception {
 
-        Supplier supplier = (Supplier) MyProxy.newProxyInstance(new MyclassLoader(), FunctionImpl.class.getInterfaces(), new MyInvocationHandler() {
+        Supplier supplier = (Supplier) MyProxy.newProxyInstance(new MyclassLoader(), SupplierImpl.class.getInterfaces(), new MyInvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                return "66666";
+                return method.invoke(new SupplierImpl(),args) + "6666";
             }
         });
 
