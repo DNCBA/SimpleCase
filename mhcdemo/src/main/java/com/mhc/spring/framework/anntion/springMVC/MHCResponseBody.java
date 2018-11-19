@@ -1,4 +1,11 @@
 package com.mhc.spring.framework.anntion.springMVC;
 
-public class MHCResponseBody {
+
+import java.lang.annotation.*;
+
+
+@Target(value = {ElementType.METHOD})
+@Retention(value = RetentionPolicy.RUNTIME )
+@Documented
+public @interface MHCResponseBody {
 }
