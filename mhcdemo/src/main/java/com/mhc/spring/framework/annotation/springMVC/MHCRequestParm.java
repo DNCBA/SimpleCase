@@ -1,4 +1,4 @@
-package com.mhc.spring.framework.anntion.springMVC;
+package com.mhc.spring.framework.annotation.springMVC;
 
 import java.lang.annotation.*;
 

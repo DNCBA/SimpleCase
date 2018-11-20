@@ -1,9 +1,9 @@
 package com.mhc.spring.framework.servlet;
 
 
-import com.mhc.spring.framework.anntion.spring.MHCController;
-import com.mhc.spring.framework.anntion.springMVC.MHCRequestMapping;
-import com.mhc.spring.framework.anntion.springMVC.MHCRequestParm;
+import com.mhc.spring.framework.annotation.spring.MHCController;
+import com.mhc.spring.framework.annotation.springMVC.MHCRequestMapping;
+import com.mhc.spring.framework.annotation.springMVC.MHCRequestParm;
 import com.mhc.spring.framework.context.MHCContext;
 
 import javax.servlet.ServletConfig;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 

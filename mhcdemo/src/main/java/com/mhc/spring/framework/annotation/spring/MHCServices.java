@@ -1,10 +1,11 @@
-package com.mhc.spring.framework.anntion.spring;
+package com.mhc.spring.framework.annotation.spring;
+
 
 import java.lang.annotation.*;
 
 @Target(value = {ElementType.TYPE})
 @Retention(value = RetentionPolicy.RUNTIME )
 @Documented
-public @interface MHCController {
-
+public @interface MHCServices {
+    String value();
 }
