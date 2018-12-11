@@ -33,6 +33,13 @@
       <version>build210</version>
     </dependency>
 
+    <!--打tar包-->
+    <dependency>
+      <groupId>org.xeustechnologies</groupId>
+      <artifactId>jtar</artifactId>
+      <version>1.1</version>
+    </dependency>
+
     <!--mysql的jdbc驱动-->
     <dependency>
       <groupId>mysql</groupId>
