@@ -26,6 +26,13 @@
       <version>6.9.10</version>
     </dependency>
 
+    <!--ssh连接-->
+    <dependency>
+      <groupId>ch.ethz.ganymed</groupId>
+      <artifactId>ganymed-ssh2</artifactId>
+      <version>build210</version>
+    </dependency>
+
     <!--mysql的jdbc驱动-->
     <dependency>
       <groupId>mysql</groupId>

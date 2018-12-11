@@ -3,9 +3,13 @@
 * jdbc连接
     > com.mhc.jdbc
 * 网络通讯
-    > com.mhc.socket   
+    > com.mhc.socket 
+* 远程ssh连接
+    > com.mhc.ssh 
 * 序列化
     > com.mhc.serizlize   
+* 压缩打包
+    > com.mhc.compress
 * rpc框架之rmi
     > com.mhc.rmi   
 * rpc框架之webservice
@@ -16,3 +20,4 @@
     > com.mhc.zookeeper
 * spring架构核心实现
     > com.mhc.spring.framework
+    
