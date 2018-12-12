@@ -8,7 +8,7 @@
   <artifactId>demo</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>demo</name>
+  <name>mhcdemo</name>
   <url>http://www.example.com</url>
 
   <properties>
