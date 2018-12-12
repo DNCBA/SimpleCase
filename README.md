@@ -7,7 +7,7 @@
 * 远程ssh连接
     > com.mhc.ssh 
 * 序列化
-    > com.mhc.serizlize   
+    > com.mhc.serialize   
 * 压缩打包
     > com.mhc.compress
 * rpc框架之rmi
