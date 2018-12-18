@@ -10,6 +10,8 @@
     > com.mhc.serialize   
 * 压缩打包
     > com.mhc.compress
+* 生成PDF
+    > com.mhc.pdf
 * rpc框架之rmi
     > com.mhc.rmi   
 * rpc框架之webservice
