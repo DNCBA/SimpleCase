@@ -1,5 +1,5 @@
 package com.mhc.mybatis.application;
 
 public interface UserMapper {
-    User selectByName();
+    User selectById(Integer userId);
 }

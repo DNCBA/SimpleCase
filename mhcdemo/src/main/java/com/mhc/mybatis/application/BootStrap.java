@@ -22,7 +22,9 @@ public class BootStrap {
 
         UserMapper mapper = session.getMapper(UserMapper.class);
 
-        User user = mapper.selectByName();
+        User user = mapper.selectById(1);
+
+        System.out.println(user);
 
     }
 }
