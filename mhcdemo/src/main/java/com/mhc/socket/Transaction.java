@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 
 import java.io.*;
 import java.net.*;
+import java.nio.channels.*;
+import java.util.Iterator;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,15 +20,120 @@ public class Transaction {
 
     private ExecutorService  executorService = Executors.newCachedThreadPool();
 
+
+    public static void main(String[] args) {
+        Transaction transaction = new Transaction();
+
+        transaction.testBIO();
+
+        transaction.testNIO();
+
+
+    }
+
     @Test
-    public void test(){
+    public void testNIO() {
+
+        CountDownLatch latch = new CountDownLatch(2);
+        executorService.submit(()->{
+            try {
+                testNIOService();
+                latch.countDown();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        executorService.submit(()->{
+            try {
+                testNIOClient();
+                latch.countDown();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void testNIOClient() throws IOException {
+        InetAddress localHost = InetAddress.getLocalHost();
+        Integer port = 8090;
+        Socket socket = new Socket(localHost, 8090);
+
+        OutputStream outputStream = socket.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+
+        writer.write("hello NIO");
+
+        writer.flush();
+
+        writer.close();
+
+        socket.close();
+
+        System.out.println("客户端发送数据结束");
+    }
+
+    private void testNIOService() throws IOException {
+
+
+        //打开服务器通道
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        //设置为非阻塞模式
+        serverSocketChannel.configureBlocking(false);
+        //绑定端口
+        serverSocketChannel.bind(new InetSocketAddress(8090));
+        //创建多路复用器
+        Selector selector = Selector.open();
+        //将多路复用器注册到服务器中
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+
+        System.out.println("NIO服务器已经启动");
+
+        while (true) {
+            //多路复用器开始监听
+            selector.select();
+            //获得多路复用器已经选择的链接集合
+            Iterator<SelectionKey> keys = selector.selectedKeys().iterator();
+            while (keys.hasNext()) {
+                SelectionKey selectionKey = keys.next();
+                keys.remove();
+                if (selectionKey.isValid()) {
+                    if (selectionKey.isAcceptable()) {
+                        System.out.println("socket is acceptable");
+                        ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
+                        SocketChannel accept = channel.accept();
+                        accept.configureBlocking(false);
+                        accept.register(selector,SelectionKey.OP_READ);
+                    }
+                    if (selectionKey.isReadable()) {
+                        System.out.println("socket is readable");
+                    }
+                    if (selectionKey.isWritable()) {
+                        System.out.println("socket is writable");
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    @Test
+    public  void testBIO(){
         //tcp链接
         testTCP();
         //udp链接
-        //testUDP();
+        testUDP();
     }
 
-    private void testUDP() {
+    private void  testUDP() {
         //启动udp服务端
         executorService.submit(()->{
             try {
