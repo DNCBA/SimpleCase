@@ -2,8 +2,8 @@
 ----------
 * jdbc连接
     > com.mhc.jdbc
-* 网络通讯
-    > com.mhc.socket 
+* io操作
+    > com.mhc.io 
 * 远程ssh连接
     > com.mhc.ssh 
 * 序列化
