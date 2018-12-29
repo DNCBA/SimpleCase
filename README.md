@@ -20,6 +20,8 @@
     > com.mhc.dubbo 
 * zookeeper使用java操作
     > com.mhc.zookeeper
+* redis使用java操作
+    > com.mhc.redis
 * spring架构核心实现
     > com.mhc.spring.framework
 * mybatis架构核心实现
