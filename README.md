@@ -26,5 +26,7 @@
     > com.mhc.spring.framework
 * mybatis架构核心实现
     > com.mhc.mybatis
+* java8新特性
+    > com.mhc.java8
     
     
