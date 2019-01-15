@@ -19,12 +19,7 @@ public class lamdba {
 
         predicate("predicate1",(s)->{ return s.equals("aaa");} );
         predicate("aaa", Objects::isNull);
-
-
-
-
     }
-
 
     public static void consumer(Object o,Consumer consumer){
         consumer.accept(o);

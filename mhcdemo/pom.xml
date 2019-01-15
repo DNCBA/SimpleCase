@@ -19,6 +19,14 @@
 
   <dependencies>
 
+    <!-- activemq-core -->
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-core</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+
+
     <!-- spring-data-redis -->
     <dependency>
       <groupId>org.springframework.data</groupId>

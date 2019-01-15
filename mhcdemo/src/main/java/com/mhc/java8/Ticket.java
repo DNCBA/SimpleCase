@@ -43,4 +43,5 @@ public class Ticket {
     public void setInfo(String info) {
         this.info = info;
     }
+
 }

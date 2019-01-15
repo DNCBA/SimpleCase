@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjuster.*;
 
 public class DateApi {
+
     public static void main(String[] args) {
         toPerson();
 
@@ -35,9 +35,6 @@ public class DateApi {
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDateTime.of(localDate,localTime);
         System.out.println("localDateTime:"+localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-
-
-
-
     }
+
 }
