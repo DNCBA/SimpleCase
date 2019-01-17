@@ -24,13 +24,16 @@
     > com.mhc.zookeeper
 * redis使用java操作
     > com.mhc.redis
+* activeMQ使用java操作
+    > com.mhc.activeMQ
+* elasticsearch使用java操作
+    > com.mhc.elasticsearch
 * spring架构核心实现
     > com.mhc.spring.framework
 * mybatis架构核心实现
     > com.mhc.mybatis
 * java8新特性
     > com.mhc.java8
-* activeMQ
-    > com.mhc.activeMQ
+
     
     
