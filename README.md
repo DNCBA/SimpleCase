@@ -6,6 +6,8 @@
     > com.mhc.io 
 * 远程ssh连接
     > com.mhc.ssh 
+* http
+    > com.mhc.http
 * 序列化
     > com.mhc.serialize   
 * 压缩打包
