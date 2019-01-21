@@ -26,6 +26,8 @@
     > com.mhc.redis
 * activeMQ使用java操作
     > com.mhc.activeMQ
+* kafka使用java操作
+    > com.mhc.kafka
 * elasticsearch使用java操作
     > com.mhc.elasticsearch
 * spring架构核心实现

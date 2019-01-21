@@ -8,7 +8,7 @@ import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.params.HttpParams;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -60,9 +60,9 @@ public class HttpTest {
 
     private static void doParams(CloseableHttpClient httpClient, HttpUriRequest httpUriRequest) {
         try {
-            HttpParams params = httpClient.getParams();
-            params.setParameter("key","");
-            httpUriRequest.setParams(params);
+//            HttpParams params = httpClient.getParams();
+//            params.setParameter("key","");
+//            httpUriRequest.setParams(params);
             CloseableHttpResponse response = httpClient.execute(httpUriRequest);
             String line = new BufferedReader(new InputStreamReader(response.getEntity().getContent())).readLine();
             System.out.println(line);
