@@ -30,6 +30,8 @@
     > com.mhc.kafka
 * elasticsearch使用java操作
     > com.mhc.elasticsearch
+* mongodb使用java操作
+    > com.mhc.mongodb
 * spring架构核心实现
     > com.mhc.spring.framework
 * mybatis架构核心实现

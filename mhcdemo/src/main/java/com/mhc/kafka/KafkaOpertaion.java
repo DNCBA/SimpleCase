@@ -35,7 +35,7 @@ public class KafkaOpertaion {
 
     private static void topic() throws InterruptedException, ExecutionException {
         Properties config = new Properties();
-        config.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG,"114.116.67.84:9092");
+        config.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.0.185:9092");
         config.put(AdminClientConfig.CLIENT_ID_CONFIG,"adminClient1");
         AdminClient adminClient = AdminClient.create(config);
         adminClient.createTopics(Arrays.asList(new NewTopic("topic1", 4, (short) 1)));
@@ -59,6 +59,9 @@ public class KafkaOpertaion {
             KafkaConsumer consumer = new KafkaConsumer(config);
             consumer.subscribe(Arrays.asList("test"));
             ConsumerRecords<String,String> consumerRecords = consumer.poll(Duration.ofDays(1));
+
+
+
 
             for (ConsumerRecord<String,String> record : consumerRecords){
                 System.out.println("recive data key: " + record.key()+",value:" + record.value());
