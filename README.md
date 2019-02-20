@@ -1,5 +1,7 @@
 # 常见用例
 ----------
+* 数据结构和算法
+    > com.mhc.algorithm
 * jdbc连接
     > com.mhc.jdbc
 * io操作
