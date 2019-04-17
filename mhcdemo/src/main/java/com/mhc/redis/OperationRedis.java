@@ -1,11 +1,19 @@
 package com.mhc.redis;
 
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class OperationRedis {
 
@@ -25,8 +33,27 @@ public class OperationRedis {
     private static void testSpringDataRedis() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         RedisTemplate template = context.getBean(RedisTemplate.class);
-        template.opsForValue().set("wyl","wyl");
-        Object wyl = template.opsForValue().get("wyl");
+
+        // 设置不同的 key 序列化方式会生成不同的 key 需要在项目中进行注意
+        template.setKeySerializer(new StringRedisSerializer());
+        // 使用 json 的 value 序列化方式，在反序列化的时候回返回一个 map 不能将对象进行强转
+        //template.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
+        template.setValueSerializer(new JdkSerializationRedisSerializer());
+
+
+        User user = new User();
+        user.setName("zs");
+        user.setAge(25);
+
+
+        template.opsForValue().set("redisTestKey",user);
+
+        User result = (User) template.opsForValue().get("redisTestKey");
+
+        System.out.println(result);
+
+
+
     }
 
     private static void testJedis() throws Exception {
