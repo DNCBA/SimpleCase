@@ -58,13 +58,13 @@ public class KafkaOpertaion {
 
             KafkaConsumer consumer = new KafkaConsumer(config);
             consumer.subscribe(Arrays.asList("test"));
-            ConsumerRecords<String,String> consumerRecords = consumer.poll(Duration.ofDays(1));
 
-
-
-
-            for (ConsumerRecord<String,String> record : consumerRecords){
-                System.out.println("recive data key: " + record.key()+",value:" + record.value());
+            while (true) {
+                ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofSeconds(10));
+                for (ConsumerRecord<String, String> record : consumerRecords) {
+                    System.out.println("recive data key: " + record.key() + ",value:" + record.value());
+                }
+                TimeUnit.SECONDS.sleep(10);
             }
 
         }catch (Exception e){
