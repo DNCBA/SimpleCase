@@ -2,9 +2,25 @@ package com.mhc.redis;
 
 import org.apache.kafka.common.protocol.types.Field;
 
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class User implements Serializable {
+
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        int i = random.nextInt(50);
+        System.out.println(i);
+
+        List<Double> collect = Stream.generate(Math::random).map(aDouble -> aDouble * 10000L).limit(4).collect(Collectors.toList());
+        System.out.println(collect);
+
+    }
 
 
     private static final long serialVersionUID = -3431107412952680959L;

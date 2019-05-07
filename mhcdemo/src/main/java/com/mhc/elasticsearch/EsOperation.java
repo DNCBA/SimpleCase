@@ -9,11 +9,13 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Map;
 
 
 public class EsOperation {
@@ -21,13 +23,18 @@ public class EsOperation {
     public static void main(String[] args) {
 
 
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        ElasticsearchTemplate elasticsearchTemplate = applicationContext.getBean(ElasticsearchTemplate.class);
-        elasticsearchTemplate.createIndex("qwerqwe");
-        elasticsearchTemplate.createIndex("qwerqwe","{}");
+//        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+//        applicationContext.register(EsConfiguration.class);
+//        applicationContext.refresh();
+//        ElasticsearchTemplate template = applicationContext.getBean(ElasticsearchTemplate.class);
+//
+//
+//        template.createIndex("elasticsearch");
+//
+//        Map setting = template.getSetting("elasticsearch");
 
 
-        //esClient();
+        esClient();
 
     }
 
@@ -36,7 +43,7 @@ public class EsOperation {
             TransportClient client = new PreBuiltTransportClient(Settings.EMPTY).
                     addTransportAddress(
                             new TransportAddress(
-                                    InetAddress.getByName("114.116.67.84"), 9300));
+                                    InetAddress.getByName("192.168.9.125"), 9300));
 
             //创建索引和添加数据（setSource()可以传递多种数据）
             client.prepareIndex("myindex3", "test").setSource("{\"name\":\"zs\",\"age\":19}", XContentType.JSON).get();
