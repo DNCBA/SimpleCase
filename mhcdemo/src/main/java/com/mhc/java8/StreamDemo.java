@@ -1,5 +1,6 @@
 package com.mhc.java8;
 
+import com.mhc.jdbc.User;
 import org.joda.time.Interval;
 
 import java.util.*;
@@ -31,6 +32,11 @@ public class StreamDemo {
                         (a, b) -> a + b));
 
         System.out.println(sum);
+
+        User user = new User();
+
+
+
 
     }
 

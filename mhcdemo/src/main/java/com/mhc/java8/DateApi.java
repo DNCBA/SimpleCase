@@ -9,9 +9,15 @@ import java.time.format.DateTimeFormatter;
 public class DateApi {
 
     public static void main(String[] args) {
-        toPerson();
 
-        toComputer();
+        LocalDateTime now = LocalDateTime.now();
+
+        String format = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+
+//        toPerson();
+//
+//        toComputer();
 
     }
 

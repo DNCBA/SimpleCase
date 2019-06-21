@@ -1,9 +1,11 @@
 package com.mhc.base;
 
+import com.alibaba.fastjson.JSON;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,14 +13,18 @@ import java.util.stream.Stream;
 public class Main {
 
 
+    public static void main(String[] args) {
+        HashMap<String, String> stringStringHashMap = new HashMap<>();
+        stringStringHashMap.put("aaa,","bbb");
+        stringStringHashMap.put("ccc","ddd");
+        String s = JSON.toJSONString(stringStringHashMap);
+        System.out.println(s);
+    }
+
+
     @Test
     public void store(){
-
-        List<ErrorType> errorTypes = Arrays.asList(new ErrorType[]{ErrorType.First, ErrorType.Three,ErrorType.Second});
-
-        errorTypes = errorTypes.stream().sorted(Comparator.comparingInt(ErrorType::getIndex)).collect(Collectors.toList());
-
-        System.out.println(errorTypes);
-
+        Exception exception = new NotFoundFormInstanceException();
+        System.out.println(exception.getMessage());
     }
 }
