@@ -15,28 +15,25 @@ public class StreamDemo {
      * @param args
      */
     public static void main(String[] args) {
-        Stream<Integer> stream = createStream();
-//        Map<String, Long> collect = stream.filter(t -> t > 5)
-//                .collect(Collectors.groupingBy(Object::toString, Collectors.counting()));
-//        System.out.println(collect);
-
+//        Stream<Integer> stream = createStream();
+////        Map<String, Long> collect = stream.filter(t -> t > 5)
+////                .collect(Collectors.groupingBy(Object::toString, Collectors.counting()));
+////        System.out.println(collect);
+//
+////        Integer sum = stream.filter(t -> t > 5)
+////                .map(Integer::valueOf)
+////                .collect(Collectors.summingInt(Integer::new));
+//
+//
 //        Integer sum = stream.filter(t -> t > 5)
-//                .map(Integer::valueOf)
-//                .collect(Collectors.summingInt(Integer::new));
-
-
-        Integer sum = stream.filter(t -> t > 5)
-                .map(Objects::toString)
-                .collect(Collectors.reducing(0,
-                        Integer::parseInt,
-                        (a, b) -> a + b));
-
-        System.out.println(sum);
-
-        User user = new User();
-
-
-
+//                .map(Objects::toString)
+//                .collect(Collectors.reducing(0,
+//                        Integer::parseInt,
+//                        (a, b) -> a + b));
+//
+//        System.out.println(sum);
+//
+//        User user = new User();
 
     }
 

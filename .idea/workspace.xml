@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00f87df8-b1f7-4a85-8d21-f27d6a87956f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/CreateWord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/WorderToNewWordUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/ZipUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhcdemo/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/demo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhcdemo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhcdemo/target/classes/com/mhc/java8/StreamDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/target/classes/com/mhc/java8/StreamDemo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java" afterDir="false" />
     </list>
     <list id="c06f815f-5799-4265-970b-98fd859103d2" name="ignore" comment="" />
     <ignored path="$PROJECT_DIR$/mhcdemo/target/" />
@@ -36,14 +32,46 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/WorderToNewWordUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="72" column="14" selection-start-line="72" selection-start-column="14" selection-end-line="72" selection-end-column="14" />
+            <state relative-caret-position="299">
+              <caret line="215" lean-forward="true" selection-start-line="211" selection-start-column="1" selection-end-line="215" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/Compress.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="123">
+              <caret line="96" column="31" selection-start-line="96" selection-start-column="16" selection-end-line="96" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/ZipUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="343">
+              <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#zipFiles#0;class#ZipUtils#0" />
+                <element signature="method#copy#0;class#ZipUtils#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="496">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
             </state>
           </provider>
         </entry>
@@ -110,10 +138,12 @@
         <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/DateApi.java" />
         <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/NotFoundFormInstanceException.java" />
         <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/Main.java" />
-        <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java" />
         <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/CreateWord.java" />
         <option value="$PROJECT_DIR$/mhcdemo/pom.xml" />
         <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/WorderToNewWordUtils.java" />
+        <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java" />
+        <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/Compress.java" />
+        <option value="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/ZipUtils.java" />
       </list>
     </option>
   </component>
@@ -148,10 +178,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="54" />
+    <option name="x" value="-97" />
     <option name="y" value="23" />
     <option name="width" value="1316" />
-    <option name="height" value="839" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -209,6 +239,16 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="mhc" type="462c0819:PsiDirectoryNode" />
+              <item name="compress" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SimpleCase" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SimpleCase" type="462c0819:PsiDirectoryNode" />
+              <item name="mhcdemo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="mhc" type="462c0819:PsiDirectoryNode" />
               <item name="poi" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -229,7 +269,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561111106704" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561124397124" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -250,26 +290,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.WorderToNewWordUtils">
-    <configuration name="DateApi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.mhc.java8.DateApi" />
+  <component name="RunManager" selected="Application.ZipUtils">
+    <configuration name="StreamDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.mhc.java8.StreamDemo" />
       <module name="demo" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.mhc.java8.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.mhc.base.Main" />
-      <module name="demo" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.mhc.base.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -283,6 +310,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.mhc.poi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ZipUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.mhc.compress.ZipUtils" />
+      <module name="demo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mhc.compress.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -328,11 +368,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ZipUtils" />
+        <item itemvalue="Application.StreamDemo" />
         <item itemvalue="Application.WorderToNewWordUtils" />
         <item itemvalue="TestNG.CreateWord.main" />
         <item itemvalue="TestNG.Main.store" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.DateApi" />
       </list>
     </recent_temporary>
   </component>
@@ -363,7 +403,7 @@
       <workItem from="1560406362805" duration="1927000" />
       <workItem from="1561022849130" duration="1373000" />
       <workItem from="1561084590606" duration="11821000" />
-      <workItem from="1561109071894" duration="1891000" />
+      <workItem from="1561109071894" duration="9196000" />
     </task>
     <task id="LOCAL-00001" summary="redis 序列化的问题">
       <created>1555503729925</created>
@@ -436,13 +476,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90920000" />
+    <option name="totallyTimeSpent" value="98225000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="23" width="1316" height="839" extended-state="0" />
+    <frame x="-97" y="23" width="1316" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19544742" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25902668" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -451,23 +491,23 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.51706034" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.35359117" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19947506" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.35359117" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.34119278" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.2058011" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32872927" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32983795" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.517337" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.51657456" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24955197" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.33112583" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.33045527" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" />
@@ -648,20 +688,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/kafka/KafkaOpertaion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/kafka/Consumer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/kafka/Admin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -972,13 +998,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/CreateExcel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -1035,6 +1054,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mhcdemo/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/CreateWord.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -1045,20 +1072,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mhcdemo/pom.xml">
+    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/Compress.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="123">
+          <caret line="96" column="31" selection-start-line="96" selection-start-column="16" selection-end-line="96" selection-end-column="31" />
         </state>
       </provider>
-      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/poi/WorderToNewWordUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="72" column="14" selection-start-line="72" selection-start-column="14" selection-end-line="72" selection-end-column="14" />
+        <state relative-caret-position="299">
+          <caret line="215" lean-forward="true" selection-start-line="211" selection-start-column="1" selection-end-line="215" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/compress/ZipUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="104" column="36" lean-forward="true" selection-start-line="104" selection-start-column="36" selection-end-line="104" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#zipFiles#0;class#ZipUtils#0" />
+            <element signature="method#copy#0;class#ZipUtils#0" />
           </folding>
         </state>
       </provider>
