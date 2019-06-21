@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00f87df8-b1f7-4a85-8d21-f27d6a87956f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/DateApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/DateApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java" afterDir="false" />
-    </list>
+    <list default="true" id="00f87df8-b1f7-4a85-8d21-f27d6a87956f" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/mhcdemo/target/" />
     <ignored path=".idea/" />
     <ignored path="lib/" />
@@ -31,7 +27,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/NotFoundFormInstanceException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
+            <state relative-caret-position="190">
               <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
               <folding>
                 <element signature="e#218#219#0" expanded="true" />
@@ -53,7 +49,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
+            <state relative-caret-position="141">
               <caret line="36" selection-start-line="36" selection-end-line="36" />
             </state>
           </provider>
@@ -153,8 +149,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="116" />
-    <option name="y" value="38" />
+    <option name="x" value="115" />
+    <option name="y" value="37" />
     <option name="width" value="1250" />
     <option name="height" value="836" />
   </component>
@@ -163,8 +159,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -229,12 +223,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560501348383" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561085668392" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -371,6 +367,7 @@
       <workItem from="1560167950351" duration="508000" />
       <workItem from="1560406362805" duration="1927000" />
       <workItem from="1561022849130" duration="1373000" />
+      <workItem from="1561084590606" duration="812000" />
     </task>
     <task id="LOCAL-00001" summary="redis 序列化的问题">
       <created>1555503729925</created>
@@ -443,12 +440,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77208000" />
+    <option name="totallyTimeSpent" value="78020000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="575" y="121" width="1403" height="837" extended-state="0" />
+    <frame x="115" y="37" width="1250" height="836" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27626744" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31539735" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -463,13 +460,13 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.328807" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.445215" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32903227" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32983795" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" weight="0.32983795" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.517337" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24955197" />
@@ -980,6 +977,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/stream/Collectors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="211" column="35" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/jdbc/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -989,7 +1000,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/base/NotFoundFormInstanceException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
+        <state relative-caret-position="190">
           <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
           <folding>
             <element signature="e#218#219#0" expanded="true" />
@@ -1005,23 +1016,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/util/stream/Collectors.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="211" column="35" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/jdbc/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="5" column="28" lean-forward="true" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mhcdemo/src/main/java/com/mhc/java8/StreamDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
+        <state relative-caret-position="141">
           <caret line="36" selection-start-line="36" selection-end-line="36" />
         </state>
       </provider>
