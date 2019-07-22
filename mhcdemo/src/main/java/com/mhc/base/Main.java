@@ -3,6 +3,7 @@ package com.mhc.base;
 import com.alibaba.fastjson.JSON;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -26,5 +27,15 @@ public class Main {
     public void store(){
         Exception exception = new NotFoundFormInstanceException();
         System.out.println(exception.getMessage());
+    }
+
+    @Test
+    public void test(){
+        System.out.println(Long.MAX_VALUE);
+
+        BigDecimal bigDecimal = new BigDecimal(1);
+        int i = bigDecimal.intValue();
+
+        System.out.println(new BigDecimal(bigDecimal.toString()));
     }
 }
