@@ -19,7 +19,7 @@ import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 public class HttpTest {
 
 
-    private static final String URL = "http://localhost:8080";
+    private static final String URL = "http://www.eol.cn/html/zhongxue/shzxx/index.shtml";
 
     public static void main(String[] args) {
 
@@ -27,11 +27,11 @@ public class HttpTest {
 
         testGetRequest(httpClient);
 
-        testPutRequest(httpClient);
-
-        testDeleteRequest(httpClient);
-
-        testPostRequest(httpClient);
+//        testPutRequest(httpClient);
+//
+//        testDeleteRequest(httpClient);
+//
+//        testPostRequest(httpClient);
 
 
     }
