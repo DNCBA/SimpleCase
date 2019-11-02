@@ -5,6 +5,10 @@ public class Ticket {
     private Boolean active;
     private String info;
 
+    public Ticket() {
+
+    }
+
     public Ticket(Integer id, Boolean active, String info) {
         this.id = id;
         this.active = active;
