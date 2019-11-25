@@ -3,11 +3,14 @@ package com.mhc.elasticsearch;
 
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -53,6 +56,9 @@ public class EsOperation {
             client.prepareDelete().setIndex("myindex3").setType("test").setId("1").get();
             //查询
             client.prepareSearch("myindex").get();
+            //骚操作
+            SearchRequestBuilder srb1 = client.prepareSearch().setQuery(QueryBuilders.queryStringQuery("zhangsan")).setSize(1);
+            SearchRequestBuilder srb2 = client.prepareSearch().setQuery(QueryBuilders.matchQuery("message", "value")).setSize(1);
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
