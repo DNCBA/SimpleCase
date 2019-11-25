@@ -12,7 +12,7 @@ public class Singleton2 {
   }
 
 
-  private static Singleton2 instance;
+  private static volatile Singleton2 instance;
 
   static {
     instance = new Singleton2();
