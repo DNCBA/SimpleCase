@@ -13,7 +13,7 @@ public class AIOBootStrap {
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2, 5, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(5));
 
         poolExecutor.submit(()->{
-            AIOServer aioServer = new AIOServer(8090);
+            AIOServer aioServer = new AIOServer(8801);
             aioServer.listener();
         });
 
@@ -21,7 +21,7 @@ public class AIOBootStrap {
 
         poolExecutor.submit(()->{
             try {
-                AIOClient aioClient = new AIOClient(8090, InetAddress.getLocalHost());
+                AIOClient aioClient = new AIOClient(8801, InetAddress.getLocalHost());
                 aioClient.send();
             } catch (UnknownHostException e) {
                 e.printStackTrace();
