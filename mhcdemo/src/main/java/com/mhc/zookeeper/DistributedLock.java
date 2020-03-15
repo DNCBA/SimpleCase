@@ -30,7 +30,7 @@ public class DistributedLock {
     public static void main(String[] args) throws Exception {
 
         //互斥锁实现
-        //testMutesLock();
+        testMutesLock();
 
         //共享锁实现
         testSharedLock();

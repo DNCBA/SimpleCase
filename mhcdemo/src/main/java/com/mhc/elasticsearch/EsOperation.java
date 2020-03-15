@@ -26,15 +26,15 @@ public class EsOperation {
     public static void main(String[] args) {
 
 
-//        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-//        applicationContext.register(EsConfiguration.class);
-//        applicationContext.refresh();
-//        ElasticsearchTemplate template = applicationContext.getBean(ElasticsearchTemplate.class);
-//
-//
-//        template.createIndex("elasticsearch");
-//
-//        Map setting = template.getSetting("elasticsearch");
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.register(EsConfiguration.class);
+        applicationContext.refresh();
+        ElasticsearchTemplate template = applicationContext.getBean(ElasticsearchTemplate.class);
+
+
+        template.createIndex("elasticsearch");
+
+        Map setting = template.getSetting("elasticsearch");
 
 
         esClient();
