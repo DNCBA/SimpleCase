@@ -1,5 +1,6 @@
 package com.mhc.algorithm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +38,29 @@ public class TestUtils {
                 System.err.println("正确结果:" + Arrays.asList(copy) + "\r\n错误结果:" + Arrays.asList(array) + "\r\n原始数据:" + Arrays.asList(data));
             }
         }
+    }
+
+
+    public static void main(String[] args) {
+//        ArrayList<Integer> integers = new ArrayList<>();
+//        integers.add(1);
+//        integers.add(2);
+//        todoSome(integers);
+//        System.out.println(integers);
+
+        Integer count = 1;
+        todoCount(count);
+        System.out.println(count);
+    }
+
+    private static void todoCount(Integer count) {
+        count++;
+        System.out.println(count);
+    }
+
+    private static void todoSome(ArrayList<Integer> integers) {
+        integers.add(3);
+        System.out.println(integers);
     }
 
 
