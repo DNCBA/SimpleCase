@@ -8,8 +8,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mhc.jdbc.User;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
+import org.testng.annotations.TestInstance;
 
 import java.io.*;
+import java.util.Base64;
+import java.util.UUID;
 
 /**
  * 各种序列化的相关测试
@@ -31,6 +34,8 @@ public class Serialize {
 
         //jdk自带的序列化
         testSerialized();
+        //base64
+        testBase64();
         //jackson序列化
         testJackson();
         //fastjson序列化
@@ -44,6 +49,15 @@ public class Serialize {
 
     }
 
+    @Test
+    public void testBase64() {
+        String code = UUID.randomUUID().toString();
+        System.out.println("原始数据大小:"+code.getBytes().length+"原始数据:"+code);
+        String encodeData = Base64.getEncoder().encodeToString(code.getBytes());
+        System.out.println("编码后大小:"+ encodeData.getBytes().length+ "编码后数据"+encodeData);
+        byte[] decode = Base64.getDecoder().decode(encodeData);
+        System.out.println("解码后数据大小:"+decode.length+"解码后数据:"+new String(decode));
+    }
 
 
     @Test
