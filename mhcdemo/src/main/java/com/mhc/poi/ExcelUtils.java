@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2019-06-21 21:42
+ * @date ：2019.txt-06-21 21:42
  */
 public class ExcelUtils {
 
@@ -146,7 +146,7 @@ public class ExcelUtils {
     String outputUrl = "/Users/leyan/Desktop/demo.xls";
 
     HashMap<String, String> map = new HashMap<>();
-    map.put("year","2019");
+    map.put("year","2019.txt");
     map.put("name","zslswmz");
     map.put("p1","110");
     map.put("p2","119");

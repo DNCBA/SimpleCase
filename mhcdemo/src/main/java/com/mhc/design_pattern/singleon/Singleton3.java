@@ -2,7 +2,7 @@ package com.mhc.design_pattern.singleon;
 
 /**
  * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2019-11-25 13:49
+ * @date ：2019.txt-11-25 13:49
  * 饿汉模式
  * 缺点:方法加锁性能下降
  */

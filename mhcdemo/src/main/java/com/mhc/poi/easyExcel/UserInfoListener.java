@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2019-10-21 13:26
+ * @date ：2019.txt-10-21 13:26
  */
 public class UserInfoListener extends AnalysisEventListener<UserInfo> {
 
