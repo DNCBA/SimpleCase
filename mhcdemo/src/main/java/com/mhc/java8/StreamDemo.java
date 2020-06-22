@@ -52,7 +52,7 @@ public class StreamDemo {
 //
 //        streamInstance = Stream.iterate(0, n -> n +2) ;
 //
-//        streamInstance = Stream.generate(Math::random);
+        streamInstance = Stream.generate(Math::random);
 
         return streamInstance;
     }
