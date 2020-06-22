@@ -16,6 +16,8 @@
     > com.mhc.compress
 * 生成PDF
     > com.mhc.pdf
+* 生成二维码
+    > com.mhc.codeGenerate
 * rpc框架之rmi
     > com.mhc.rmi   
 * rpc框架之webservice

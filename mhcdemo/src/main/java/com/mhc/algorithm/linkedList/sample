@@ -1,0 +1,99 @@
+#链表反转
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode newPointer = null;
+        while(null != head){
+            ListNode originPointer = head.next;
+            head.next = newPointer;
+            newPointer = head;
+            head = originPointer;
+        }
+        return newPointer;
+    }
+}
+
+
+#链表反转2
+class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode pointer = dummyHead;
+        for ( int i = 1 ; i < m ; i++ ){
+            pointer = pointer.next;
+        }
+
+        ListNode newHeader = null;
+        ListNode newPointer = pointer.next;
+
+        for(int i = m ; i <= n ; i++){
+            ListNode temp = newPointer.next;
+            newPointer.next = newHeader;
+            newHeader = newPointer;
+            newPointer = temp;
+        }
+
+        pointer.next.next = newPointer;
+        pointer.next= newHeader;
+
+        return dummyHead.next;
+    }
+}
+
+#链表是否交叉
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode dummyHeadA = new ListNode(-1);
+        dummyHeadA.next = headA;
+        ListNode dummyHeadB = new ListNode(-1);
+        dummyHeadB.next = headB;
+        HashSet set= new HashSet();
+        ListNode result = null;
+        while(null != dummyHeadA){
+            set.add(dummyHeadA.next);
+            dummyHeadA= dummyHeadA.next;
+        }
+        while(null != dummyHeadB){
+            if(!set.add(dummyHeadB.next)){
+                result = dummyHeadB.next;
+                break;
+            }
+            dummyHeadB = dummyHeadB.next;
+        }
+        return result;
+    }
+}
+
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(null == headA || null == headB){
+            return null;
+        }
+        ListNode h1 = headA;
+        ListNode h2 = headB;
+        while(h1 != h2){
+            h1 = null == h1?headB:h1.next;
+            h2 = null == h2?headA:h2.next;
+        }
+        return h1;
+    }
+}
+
+#链表求环
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        HashSet set = new HashSet();
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = head;
+        ListNode current = dummyHead;
+        ListNode result = null;
+        while(null != current ){
+            if(!set.add(current.next)){
+                result = current.next;
+                break;
+            }
+            current = current.next;
+        }
+        return result;
+    }
+}

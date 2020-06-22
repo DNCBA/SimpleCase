@@ -2,7 +2,7 @@ package com.mhc.design_pattern.singleon;
 
 /**
  * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2019-11-25 13:37
+ * @date ：2019.txt-11-25 13:37
  * 饱汉模式
  * 缺点:不论是否使用都会实例化对象
  * 优点:写法简单,静态变量线程安全

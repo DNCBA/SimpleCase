@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 
 /**
  * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2019-07-19 21:40
+ * @date ：2019.txt-07-19 21:40
  */
 public class ApplicationContextProvider implements ApplicationContextAware {
 
