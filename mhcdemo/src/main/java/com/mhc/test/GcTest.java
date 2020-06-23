@@ -18,7 +18,7 @@ public class GcTest {
     while (true){
       byte[] bytes = new byte[102400];
       objects.add(bytes);
-      TimeUnit.SECONDS.sleep(100);
+      TimeUnit.SECONDS.sleep(1);
       System.out.println(a++);
       if (a/76==1){
         objects.clear();

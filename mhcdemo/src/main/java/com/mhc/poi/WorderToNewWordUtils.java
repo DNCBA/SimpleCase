@@ -11,8 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -223,11 +222,11 @@ public class WorderToNewWordUtils {
 //
 //    WorderToNewWordUtils.changWord(inputUrl, outputUrl, testMap);
 
-    ByteOutputStream byteOutputStream = new ByteOutputStream();
-    FileUtils.copyFile(new File(inputUrl),byteOutputStream);
-    byte[] bytes = byteOutputStream.getBytes();
-    XWPFDocument document = new XWPFDocument(new ByteInputStream(bytes, bytes.length));
-    List<XWPFParagraph> paragraphs = document.getParagraphs();
+//    ByteOutputStream byteOutputStream = new ByteOutputStream();
+//    FileUtils.copyFile(new File(inputUrl),byteOutputStream);
+//    byte[] bytes = byteOutputStream.getBytes();
+//    XWPFDocument document = new XWPFDocument(new ByteInputStream(bytes, bytes.length));
+//    List<XWPFParagraph> paragraphs = document.getParagraphs();
 
   }
 }
