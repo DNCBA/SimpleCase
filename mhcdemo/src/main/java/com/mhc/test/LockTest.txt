@@ -1,0 +1,418 @@
+Classfile /Users/leyan/Desktop/x-education/SimpleCase/mhcdemo/src/main/java/com/mhc/test/LockTest.class
+  Last modified 2020年7月2日; size 3397 bytes
+  SHA-256 checksum 36bedf26e6254690314c1630d6da14fe5a46ee4c6c54427eda802f41a175a70c
+  Compiled from "LockTest.java"
+public class com.mhc.test.LockTest
+  minor version: 0
+  major version: 58
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #14                         // com/mhc/test/LockTest
+  super_class: #2                         // java/lang/Object
+  interfaces: 0, fields: 1, methods: 6, attributes: 3
+Constant pool:
+    #1 = Methodref          #2.#3         // java/lang/Object."<init>":()V
+    #2 = Class              #4            // java/lang/Object
+    #3 = NameAndType        #5:#6         // "<init>":()V
+    #4 = Utf8               java/lang/Object
+    #5 = Utf8               <init>
+    #6 = Utf8               ()V
+    #7 = Methodref          #8.#9         // java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+    #8 = Class              #10           // java/lang/Integer
+    #9 = NameAndType        #11:#12       // valueOf:(I)Ljava/lang/Integer;
+   #10 = Utf8               java/lang/Integer
+   #11 = Utf8               valueOf
+   #12 = Utf8               (I)Ljava/lang/Integer;
+   #13 = Fieldref           #14.#15       // com/mhc/test/LockTest.count:Ljava/lang/Integer;
+   #14 = Class              #16           // com/mhc/test/LockTest
+   #15 = NameAndType        #17:#18       // count:Ljava/lang/Integer;
+   #16 = Utf8               com/mhc/test/LockTest
+   #17 = Utf8               count
+   #18 = Utf8               Ljava/lang/Integer;
+   #19 = Methodref          #14.#3        // com/mhc/test/LockTest."<init>":()V
+   #20 = Methodref          #14.#21       // com/mhc/test/LockTest.testReentrantLock:()V
+   #21 = NameAndType        #22:#6        // testReentrantLock:()V
+   #22 = Utf8               testReentrantLock
+   #23 = Methodref          #14.#24       // com/mhc/test/LockTest.testSynchroized:()V
+   #24 = NameAndType        #25:#6        // testSynchroized:()V
+   #25 = Utf8               testSynchroized
+   #26 = Methodref          #14.#27       // com/mhc/test/LockTest.testVoliate:()V
+   #27 = NameAndType        #28:#6        // testVoliate:()V
+   #28 = Utf8               testVoliate
+   #29 = Class              #30           // java/util/concurrent/CountDownLatch
+   #30 = Utf8               java/util/concurrent/CountDownLatch
+   #31 = Methodref          #29.#32       // java/util/concurrent/CountDownLatch."<init>":(I)V
+   #32 = NameAndType        #5:#33        // "<init>":(I)V
+   #33 = Utf8               (I)V
+   #34 = Class              #35           // java/util/concurrent/ArrayBlockingQueue
+   #35 = Utf8               java/util/concurrent/ArrayBlockingQueue
+   #36 = Methodref          #34.#32       // java/util/concurrent/ArrayBlockingQueue."<init>":(I)V
+   #37 = Class              #38           // java/util/concurrent/ThreadPoolExecutor
+   #38 = Utf8               java/util/concurrent/ThreadPoolExecutor
+   #39 = Long               10l
+   #41 = Fieldref           #42.#43       // java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+   #42 = Class              #44           // java/util/concurrent/TimeUnit
+   #43 = NameAndType        #45:#46       // SECONDS:Ljava/util/concurrent/TimeUnit;
+   #44 = Utf8               java/util/concurrent/TimeUnit
+   #45 = Utf8               SECONDS
+   #46 = Utf8               Ljava/util/concurrent/TimeUnit;
+   #47 = Methodref          #37.#48       // java/util/concurrent/ThreadPoolExecutor."<init>":(IIJLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/BlockingQueue;)V
+   #48 = NameAndType        #5:#49        // "<init>":(IIJLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/BlockingQueue;)V
+   #49 = Utf8               (IIJLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/BlockingQueue;)V
+   #50 = InvokeDynamic      #0:#51        // #0:run:(Lcom/mhc/test/LockTest;Ljava/util/concurrent/CountDownLatch;)Ljava/lang/Runnable;
+   #51 = NameAndType        #52:#53       // run:(Lcom/mhc/test/LockTest;Ljava/util/concurrent/CountDownLatch;)Ljava/lang/Runnable;
+   #52 = Utf8               run
+   #53 = Utf8               (Lcom/mhc/test/LockTest;Ljava/util/concurrent/CountDownLatch;)Ljava/lang/Runnable;
+   #54 = Methodref          #37.#55       // java/util/concurrent/ThreadPoolExecutor.submit:(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+   #55 = NameAndType        #56:#57       // submit:(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+   #56 = Utf8               submit
+   #57 = Utf8               (Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+   #58 = Fieldref           #59.#60       // java/lang/System.out:Ljava/io/PrintStream;
+   #59 = Class              #61           // java/lang/System
+   #60 = NameAndType        #62:#63       // out:Ljava/io/PrintStream;
+   #61 = Utf8               java/lang/System
+   #62 = Utf8               out
+   #63 = Utf8               Ljava/io/PrintStream;
+   #64 = String             #65           // synchronized 1 success
+   #65 = Utf8               synchronized 1 success
+   #66 = Methodref          #67.#68       // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #67 = Class              #69           // java/io/PrintStream
+   #68 = NameAndType        #70:#71       // println:(Ljava/lang/String;)V
+   #69 = Utf8               java/io/PrintStream
+   #70 = Utf8               println
+   #71 = Utf8               (Ljava/lang/String;)V
+   #72 = String             #73           // synchronized 2 success
+   #73 = Utf8               synchronized 2 success
+   #74 = String             #75           // synchronized end
+   #75 = Utf8               synchronized end
+   #76 = Class              #77           // java/util/concurrent/locks/ReentrantLock
+   #77 = Utf8               java/util/concurrent/locks/ReentrantLock
+   #78 = Methodref          #76.#3        // java/util/concurrent/locks/ReentrantLock."<init>":()V
+   #79 = Methodref          #76.#80       // java/util/concurrent/locks/ReentrantLock.tryLock:()Z
+   #80 = NameAndType        #81:#82       // tryLock:()Z
+   #81 = Utf8               tryLock
+   #82 = Utf8               ()Z
+   #83 = String             #84           // reentrantLock lock 1 success
+   #84 = Utf8               reentrantLock lock 1 success
+   #85 = Methodref          #76.#86       // java/util/concurrent/locks/ReentrantLock.isLocked:()Z
+   #86 = NameAndType        #87:#82       // isLocked:()Z
+   #87 = Utf8               isLocked
+   #88 = Methodref          #67.#89       // java/io/PrintStream.println:(Z)V
+   #89 = NameAndType        #70:#90       // println:(Z)V
+   #90 = Utf8               (Z)V
+   #91 = String             #92           // reentrantLock lock 2 success
+   #92 = Utf8               reentrantLock lock 2 success
+   #93 = Methodref          #76.#94       // java/util/concurrent/locks/ReentrantLock.unlock:()V
+   #94 = NameAndType        #95:#6        // unlock:()V
+   #95 = Utf8               unlock
+   #96 = String             #97           // reentrantLock unlock success
+   #97 = Utf8               reentrantLock unlock success
+   #98 = Methodref          #29.#99       // java/util/concurrent/CountDownLatch.countDown:()V
+   #99 = NameAndType        #100:#6       // countDown:()V
+  #100 = Utf8               countDown
+  #101 = Methodref          #102.#103     // java/lang/Thread.currentThread:()Ljava/lang/Thread;
+  #102 = Class              #104          // java/lang/Thread
+  #103 = NameAndType        #105:#106     // currentThread:()Ljava/lang/Thread;
+  #104 = Utf8               java/lang/Thread
+  #105 = Utf8               currentThread
+  #106 = Utf8               ()Ljava/lang/Thread;
+  #107 = Methodref          #102.#108     // java/lang/Thread.getName:()Ljava/lang/String;
+  #108 = NameAndType        #109:#110     // getName:()Ljava/lang/String;
+  #109 = Utf8               getName
+  #110 = Utf8               ()Ljava/lang/String;
+  #111 = Methodref          #29.#112      // java/util/concurrent/CountDownLatch.getCount:()J
+  #112 = NameAndType        #113:#114     // getCount:()J
+  #113 = Utf8               getCount
+  #114 = Utf8               ()J
+  #115 = InvokeDynamic      #1:#116       // #1:makeConcatWithConstants:(Ljava/lang/String;J)Ljava/lang/String;
+  #116 = NameAndType        #117:#118     // makeConcatWithConstants:(Ljava/lang/String;J)Ljava/lang/String;
+  #117 = Utf8               makeConcatWithConstants
+  #118 = Utf8               (Ljava/lang/String;J)Ljava/lang/String;
+  #119 = Methodref          #29.#120      // java/util/concurrent/CountDownLatch.await:()V
+  #120 = NameAndType        #121:#6       // await:()V
+  #121 = Utf8               await
+  #122 = Methodref          #8.#123       // java/lang/Integer.intValue:()I
+  #123 = NameAndType        #124:#125     // intValue:()I
+  #124 = Utf8               intValue
+  #125 = Utf8               ()I
+  #126 = InvokeDynamic      #2:#127       // #2:makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/Integer;)Ljava/lang/String;
+  #127 = NameAndType        #117:#128     // makeConcatWithConstants:(Ljava/lang/String;Ljava/lang/Integer;)Ljava/lang/String;
+  #128 = Utf8               (Ljava/lang/String;Ljava/lang/Integer;)Ljava/lang/String;
+  #129 = Class              #130          // java/lang/Exception
+  #130 = Utf8               java/lang/Exception
+  #131 = Methodref          #129.#132     // java/lang/Exception.printStackTrace:()V
+  #132 = NameAndType        #133:#6       // printStackTrace:()V
+  #133 = Utf8               printStackTrace
+  #134 = Utf8               Code
+  #135 = Utf8               LineNumberTable
+  #136 = Utf8               main
+  #137 = Utf8               ([Ljava/lang/String;)V
+  #138 = Utf8               StackMapTable
+  #139 = Class              #140          // java/lang/Throwable
+  #140 = Utf8               java/lang/Throwable
+  #141 = Utf8               lambda$testVoliate$0
+  #142 = Utf8               (Ljava/util/concurrent/CountDownLatch;)V
+  #143 = Utf8               SourceFile
+  #144 = Utf8               LockTest.java
+  #145 = Utf8               BootstrapMethods
+  #146 = MethodHandle       6:#147        // REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #147 = Methodref          #148.#149     // java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #148 = Class              #150          // java/lang/invoke/LambdaMetafactory
+  #149 = NameAndType        #151:#152     // metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #150 = Utf8               java/lang/invoke/LambdaMetafactory
+  #151 = Utf8               metafactory
+  #152 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+  #153 = MethodType         #6            //  ()V
+  #154 = MethodHandle       7:#155        // REF_invokeSpecial com/mhc/test/LockTest.lambda$testVoliate$0:(Ljava/util/concurrent/CountDownLatch;)V
+  #155 = Methodref          #14.#156      // com/mhc/test/LockTest.lambda$testVoliate$0:(Ljava/util/concurrent/CountDownLatch;)V
+  #156 = NameAndType        #141:#142     // lambda$testVoliate$0:(Ljava/util/concurrent/CountDownLatch;)V
+  #157 = MethodHandle       6:#158        // REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #158 = Methodref          #159.#160     // java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #159 = Class              #161          // java/lang/invoke/StringConcatFactory
+  #160 = NameAndType        #117:#162     // makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #161 = Utf8               java/lang/invoke/StringConcatFactory
+  #162 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #163 = String             #164          // \u0001 -1 now:\u0001
+  #164 = Utf8               \u0001 -1 now:\u0001
+  #165 = String             #166          // \u0001:\u0001
+  #166 = Utf8               \u0001:\u0001
+  #167 = Utf8               InnerClasses
+  #168 = Class              #169          // java/lang/invoke/MethodHandles$Lookup
+  #169 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #170 = Class              #171          // java/lang/invoke/MethodHandles
+  #171 = Utf8               java/lang/invoke/MethodHandles
+  #172 = Utf8               Lookup
+{
+  volatile java.lang.Integer count;
+    descriptor: Ljava/lang/Integer;
+    flags: (0x0040) ACC_VOLATILE
+
+  public com.mhc.test.LockTest();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: bipush        10
+         7: invokestatic  #7                  // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+        10: putfield      #13                 // Field count:Ljava/lang/Integer;
+        13: return
+      LineNumberTable:
+        line 13: 0
+        line 15: 4
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=2, args_size=1
+         0: new           #14                 // class com/mhc/test/LockTest
+         3: dup
+         4: invokespecial #19                 // Method "<init>":()V
+         7: astore_1
+         8: aload_1
+         9: invokevirtual #20                 // Method testReentrantLock:()V
+        12: aload_1
+        13: invokevirtual #23                 // Method testSynchroized:()V
+        16: aload_1
+        17: invokevirtual #26                 // Method testVoliate:()V
+        20: return
+      LineNumberTable:
+        line 19: 0
+        line 21: 8
+        line 23: 12
+        line 25: 16
+        line 27: 20
+
+  public void testVoliate();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=8, locals=5, args_size=1
+         0: new           #29                 // class java/util/concurrent/CountDownLatch
+         3: dup
+         4: bipush        20
+         6: invokespecial #31                 // Method java/util/concurrent/CountDownLatch."<init>":(I)V
+         9: astore_1
+        10: new           #34                 // class java/util/concurrent/ArrayBlockingQueue
+        13: dup
+        14: bipush        50
+        16: invokespecial #36                 // Method java/util/concurrent/ArrayBlockingQueue."<init>":(I)V
+        19: astore_2
+        20: new           #37                 // class java/util/concurrent/ThreadPoolExecutor
+        23: dup
+        24: bipush        20
+        26: bipush        20
+        28: ldc2_w        #39                 // long 10l
+        31: getstatic     #41                 // Field java/util/concurrent/TimeUnit.SECONDS:Ljava/util/concurrent/TimeUnit;
+        34: aload_2
+        35: invokespecial #47                 // Method java/util/concurrent/ThreadPoolExecutor."<init>":(IIJLjava/util/concurrent/TimeUnit;Ljava/util/concurrent/BlockingQueue;)V
+        38: astore_3
+        39: iconst_0
+        40: istore        4
+        42: iload         4
+        44: bipush        20
+        46: if_icmpge     67
+        49: aload_3
+        50: aload_0
+        51: aload_1
+        52: invokedynamic #50,  0             // InvokeDynamic #0:run:(Lcom/mhc/test/LockTest;Ljava/util/concurrent/CountDownLatch;)Ljava/lang/Runnable;
+        57: invokevirtual #54                 // Method java/util/concurrent/ThreadPoolExecutor.submit:(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;
+        60: pop
+        61: iinc          4, 1
+        64: goto          42
+        67: return
+      LineNumberTable:
+        line 30: 0
+        line 31: 10
+        line 32: 20
+        line 35: 39
+        line 36: 49
+        line 35: 61
+        line 48: 67
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 42
+          locals = [ class com/mhc/test/LockTest, class java/util/concurrent/CountDownLatch, class java/util/concurrent/ArrayBlockingQueue, class java/util/concurrent/ThreadPoolExecutor, int ]
+          stack = []
+        frame_type = 250 /* chop */
+          offset_delta = 24
+
+  public void testSynchroized();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=6, args_size=1
+         0: new           #2                  // class java/lang/Object
+         3: dup
+         4: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         7: astore_1
+         8: aload_1
+         9: dup
+        10: astore_2
+        11: monitorenter
+        12: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        15: ldc           #64                 // String synchronized 1 success
+        17: invokevirtual #66                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        20: aload_1
+        21: dup
+        22: astore_3
+        23: monitorenter
+        24: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        27: ldc           #72                 // String synchronized 2 success
+        29: invokevirtual #66                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        32: aload_3
+        33: monitorexit
+        34: goto          44
+        37: astore        4
+        39: aload_3
+        40: monitorexit
+        41: aload         4
+        43: athrow
+        44: aload_2
+        45: monitorexit
+        46: goto          56
+        49: astore        5
+        51: aload_2
+        52: monitorexit
+        53: aload         5
+        55: athrow
+        56: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        59: ldc           #74                 // String synchronized end
+        61: invokevirtual #66                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        64: return
+      Exception table:
+         from    to  target type
+            24    34    37   any
+            37    41    37   any
+            12    46    49   any
+            49    53    49   any
+      LineNumberTable:
+        line 51: 0
+        line 52: 8
+        line 53: 12
+        line 54: 20
+        line 55: 24
+        line 56: 32
+        line 57: 44
+        line 58: 56
+        line 59: 64
+      StackMapTable: number_of_entries = 4
+        frame_type = 255 /* full_frame */
+          offset_delta = 37
+          locals = [ class com/mhc/test/LockTest, class java/lang/Object, class java/lang/Object, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 6
+        frame_type = 68 /* same_locals_1_stack_item */
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 6
+
+  public void testReentrantLock();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=1
+         0: new           #76                 // class java/util/concurrent/locks/ReentrantLock
+         3: dup
+         4: invokespecial #78                 // Method java/util/concurrent/locks/ReentrantLock."<init>":()V
+         7: astore_1
+         8: aload_1
+         9: invokevirtual #79                 // Method java/util/concurrent/locks/ReentrantLock.tryLock:()Z
+        12: ifeq          58
+        15: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        18: ldc           #83                 // String reentrantLock lock 1 success
+        20: invokevirtual #66                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        23: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        26: aload_1
+        27: invokevirtual #85                 // Method java/util/concurrent/locks/ReentrantLock.isLocked:()Z
+        30: invokevirtual #88                 // Method java/io/PrintStream.println:(Z)V
+        33: aload_1
+        34: invokevirtual #79                 // Method java/util/concurrent/locks/ReentrantLock.tryLock:()Z
+        37: ifeq          58
+        40: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        43: ldc           #91                 // String reentrantLock lock 2 success
+        45: invokevirtual #66                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        48: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        51: aload_1
+        52: invokevirtual #85                 // Method java/util/concurrent/locks/ReentrantLock.isLocked:()Z
+        55: invokevirtual #88                 // Method java/io/PrintStream.println:(Z)V
+        58: aload_1
+        59: invokevirtual #93                 // Method java/util/concurrent/locks/ReentrantLock.unlock:()V
+        62: getstatic     #58                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        65: ldc           #96                 // String reentrantLock unlock success
+        67: invokevirtual #66                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        70: return
+      LineNumberTable:
+        line 62: 0
+        line 63: 8
+        line 64: 15
+        line 65: 23
+        line 66: 33
+        line 67: 40
+        line 68: 48
+        line 71: 58
+        line 72: 62
+        line 73: 70
+      StackMapTable: number_of_entries = 1
+        frame_type = 252 /* append */
+          offset_delta = 58
+          locals = [ class java/util/concurrent/locks/ReentrantLock ]
+}
+SourceFile: "LockTest.java"
+BootstrapMethods:
+  0: #146 REF_invokeStatic java/lang/invoke/LambdaMetafactory.metafactory:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodType;Ljava/lang/invoke/MethodHandle;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #153 ()V
+      #154 REF_invokeSpecial com/mhc/test/LockTest.lambda$testVoliate$0:(Ljava/util/concurrent/CountDownLatch;)V
+      #153 ()V
+  1: #157 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #163 \u0001 -1 now:\u0001
+  2: #157 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #165 \u0001:\u0001
+InnerClasses:
+  public static final #172= #168 of #170; // Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
