@@ -1,0 +1,65 @@
+//为gradle自身依赖的插件
+buildscript {
+    //仓库地址
+    repositories {
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        mavenCentral()
+    }
+    //依赖管理
+    dependencies {}
+}
+
+//插件管理
+plugins {
+    id 'java'
+}
+
+allprojects {}
+
+subprojects {}
+
+project('web') {}
+
+jar {
+    archiveBaseName = 'mhc'
+    archiveVersion = '3.0'
+}
+
+
+//本项目配置管理
+group 'com.mhc'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+//本项目仓库地址的管理
+repositories {
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+
+//本项目的依赖管理
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.68'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.8.3'
+}
+
+//配置阶段回调函数
+this.afterEvaluate {
+    println 'aaa'
+}
+
+//编译完成阶段回调函数
+this.gradle.buildFinished {
+    println('ccc')
+}
+
+
+//task执行
+task mytask {
+    println('mytask running')
+}
