@@ -15,7 +15,7 @@ public class StreamDemo {
      * @param args
      */
     public static void main(String[] args) {
-//        Stream<Integer> stream = createStream();
+        Stream<Integer> stream = createStream();
 ////        Map<String, Long> collect = stream.filter(t -> t > 5)
 ////                .collect(Collectors.groupingBy(Object::toString, Collectors.counting()));
 ////        System.out.println(collect);
@@ -25,13 +25,13 @@ public class StreamDemo {
 ////                .collect(Collectors.summingInt(Integer::new));
 //
 //
-//        Integer sum = stream.filter(t -> t > 5)
-//                .map(Objects::toString)
-//                .collect(Collectors.reducing(0,
-//                        Integer::parseInt,
-//                        (a, b) -> a + b));
+        Integer sum = stream.filter(t -> t > 5)
+                .map(Objects::toString)
+                .collect(Collectors.reducing(0,
+                        Integer::parseInt,
+                        (a, b) -> a + b));
 //
-//        System.out.println(sum);
+        System.out.println(sum);
 //
 //        User user = new User();
 
@@ -43,7 +43,7 @@ public class StreamDemo {
 
         Stream streamInstance = null;
 
-        List<Integer> list = Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 5, 8});
+        List<Integer> list = Arrays.asList(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         streamInstance = list.stream();
 
 //        streamInstance = Stream.of(1,2,3,4,5,6,7,8,9,10,1);
@@ -52,7 +52,7 @@ public class StreamDemo {
 //
 //        streamInstance = Stream.iterate(0, n -> n +2) ;
 //
-        streamInstance = Stream.generate(Math::random);
+//        streamInstance = Stream.generate(Math::random);
 
         return streamInstance;
     }

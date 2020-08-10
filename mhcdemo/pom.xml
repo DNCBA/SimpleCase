@@ -20,6 +20,14 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>29.0-jre</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
@@ -462,16 +470,16 @@
                         <driver>com.mysql.cj.jdbc.Driver</driver>
                         <url>jdbc:mysql://127.0.0.1:3306/learn-jooq?serverTimezone=GMT%2B8</url>
                         <user>root</user>
-                        <password>123456</password>
+                        <password>root</password>
                     </jdbc>
                     <generator>
                         <database>
-                            <includes>s1_.*</includes>
-                            <inputSchema>learn-jooq</inputSchema>
+                            <includes>*</includes>
+                            <inputSchema>phc</inputSchema>
                         </database>
                         <target>
                             <packageName>com.mhc.jooq.codegen</packageName>
-                            <directory>/Users/leyan/Desktop/x-education/SimpleCase/mhcdemo/src/main/java</directory>
+                            <directory>C:\Users\dncba\Desktop\git\SimpleCase\mhcdemo\src\main\java</directory>
                         </target>
                     </generator>
                 </configuration>
