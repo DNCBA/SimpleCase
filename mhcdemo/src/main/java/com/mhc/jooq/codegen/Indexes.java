@@ -30,6 +30,8 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index S1_USER_IDX_ADDRESS = Indexes0.S1_USER_IDX_ADDRESS;
+    public static final Index S1_USER_IDX_EMAIL = Indexes0.S1_USER_IDX_EMAIL;
     public static final Index S1_USER_PRIMARY = Indexes0.S1_USER_PRIMARY;
 
     // -------------------------------------------------------------------------
@@ -37,6 +39,8 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index S1_USER_IDX_ADDRESS = Internal.createIndex("idx_address", S1User.S1_USER, new OrderField[] { S1User.S1_USER.ADDRESS }, false);
+        public static Index S1_USER_IDX_EMAIL = Internal.createIndex("idx_email", S1User.S1_USER, new OrderField[] { S1User.S1_USER.EMAIL }, false);
         public static Index S1_USER_PRIMARY = Internal.createIndex("PRIMARY", S1User.S1_USER, new OrderField[] { S1User.S1_USER.ID }, true);
     }
 }

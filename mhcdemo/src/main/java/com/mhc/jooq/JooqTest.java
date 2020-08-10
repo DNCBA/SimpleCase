@@ -3,6 +3,7 @@ package com.mhc.jooq;
 import com.alibaba.fastjson.JSON;
 import com.mhc.jooq.codegen.Tables;
 import com.mhc.jooq.codegen.tables.S1User;
+import com.mhc.jooq.codegen.tables.records.S1UserRecord;
 import com.zaxxer.hikari.HikariDataSource;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -12,6 +13,7 @@ import org.jooq.impl.DSL;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author ：menghui.cao, menghui.cao@leyantech.com
@@ -33,10 +35,16 @@ public class JooqTest {
 
 //    System.out.println(JSON.toJSONString(recordResult));
 
-    for (Record record : recordResult) {
-      S1User into = record.into(S1User.class);
-      System.out.println(JSON.toJSONString(into));
+    Result<S1UserRecord> s1UserRecords = recordResult.into(Tables.S1_USER);
+    List<S1User> s1UserList = recordResult.into(S1User.class);
+    for (S1UserRecord s1UserRecord : s1UserRecords) {
+      String address = s1UserRecord.getAddress();
+      System.out.println(address);
     }
+
+    System.out.println(s1UserRecords.toString());
+    System.out.println(s1UserList.toString());
+
 
 
   }
