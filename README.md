@@ -42,6 +42,15 @@
     > com.mhc.mybatis
 * java8新特性
     > com.mhc.java8
+* spring扩展相关
+   > com.mhc.spring.extend
+* jooq使用指北
+   > com.mhc.jooq
+* guava使用指北
+   > com.mhc.guava
+* gradle使用指北
+   > com.mhc.gradle
+
 
     
     

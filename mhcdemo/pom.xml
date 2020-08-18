@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <jooq.version>3.12.3</jooq.version>
+        <jooq.version>3.11.11</jooq.version>
     </properties>
 
     <dependencies>
