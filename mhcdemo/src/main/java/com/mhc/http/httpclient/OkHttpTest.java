@@ -34,6 +34,11 @@ public class OkHttpTest {
 
     Response response = okHttpClient.newCall(request).execute();
 
+    response.headers();
+
+
+    response.body().bytes();
+
     String string = response.body().toString();
 
     System.out.println(string);

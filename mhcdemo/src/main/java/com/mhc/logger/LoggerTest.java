@@ -17,20 +17,24 @@ public class LoggerTest {
 
   private  static final Logger LOGGER = LoggerFactory.getLogger(LoggerTest.class);
 
+  private static final org.apache.log4j.Logger LOGGER2 = org.apache.log4j.Logger.getLogger(LoggerTest.class);
+
 
   public static void main(String[] args) {
-    String uuid = UUID.randomUUID().toString();
-    MDC.put("traceId",uuid);
-    MDCAdapter mdcAdapter = MDC.getMDCAdapter();
-    mdcAdapter.put("traceId",uuid);
+     testSelfLogger();
 
-    LOGGER.info("hello self4j");
-    testLogger();
+     testLog4J();
 
   }
 
-  public static void testLogger() {
-    LOGGER.info("testLogger");
+  private static void testLog4J() {
+    LOGGER2.info("log4j hello self4j");
+    LOGGER2.info("log4j testLogger");
+  }
+
+  public static void testSelfLogger() {
+    LOGGER.info("self4j hello self4j");
+    LOGGER.info("self4j testLogger");
   }
 
 }
