@@ -1,13 +1,10 @@
 package com.mhc.utils;
 
-import okhttp3.Headers;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
+import lombok.Data;
+import okhttp3.*;
 import okhttp3.OkHttpClient.Builder;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,37 +18,37 @@ import java.util.concurrent.TimeUnit;
  */
 public class HttpUtils {
 
-  public static final String GET = "GET";
-  public static final String POST = "POST";
-  public static final String DELETE = "DELETE";
-  public static final String PUT = "PUT";
+  private static final String GET = "GET";
+  private static final String POST = "POST";
+  private static final String DELETE = "DELETE";
+  private static final String PUT = "PUT";
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
 
 
   protected static OkHttpClient httpClient;
-  protected static MediaType MEDIA_TYPE_JSON = MediaType.get("application/json");
+  protected static MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
 
 
   static {
     Builder builder = new Builder();
-    builder.connectTimeout(100000, TimeUnit.MICROSECONDS)
-        .readTimeout(100000, TimeUnit.MICROSECONDS)
-        .writeTimeout(100000, TimeUnit.MICROSECONDS);
+    builder.connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS);
     httpClient = builder.build();
   }
 
 
-  private static Optional<Response> doExecute(String url, String method, String body,
-      Map<String, String> headerMap) {
-    LOGGER.info("HttpUtils execute url:{},method:{},body:{},headers:{}", url, method, body,
-        headerMap);
+  protected static Optional<Response> doExecute(String url, String method, String body, Map<String, String> headerMap) {
+    StopWatch stopWatch = StopWatch.create();
     Request.Builder requestBuilder = new Request.Builder();
     RequestBody requestBody = null;
     Headers headers = null;
+    Request request = null;
     Response response = null;
     try {
       Request.Builder builder = requestBuilder.url(url);
+
       if (StringUtils.isNotBlank(body)) {
         requestBody = RequestBody.create(MEDIA_TYPE_JSON, body);
       }
@@ -60,17 +57,19 @@ public class HttpUtils {
         headers = Headers.of(headerMap);
         builder.headers(headers);
       }
-      Request request = builder.build();
+      request = builder.build();
+      LOGGER.info("HttpUtils doExecute start rep:{}", request);
       response = httpClient.newCall(request).execute();
     } catch (Exception e) {
-      LOGGER.error("HttpUtils execute error url:{},method:{}", url, method, e);
+      LOGGER.error("HttpUtils execute error {} rep:{}", stopWatch.getTime(TimeUnit.MILLISECONDS), request, e);
     }
+
+    LOGGER.info("HttpUtils doExecute end {} - rep:{} resp:{}", stopWatch.getTime(TimeUnit.MILLISECONDS), request, response);
     return Optional.ofNullable(response);
   }
 
 
-  private static Optional<HttpUtilsResponse> executeString(String url, String method, String body,
-      Map<String, String> headerMap) {
+  private static Optional<HttpUtilsResponse> executeString(String url, String method, String body, Map<String, String> headerMap) {
     Optional<Response> optional = doExecute(url, method, body, headerMap);
     HttpUtilsResponse result = null;
     try {
@@ -86,8 +85,7 @@ public class HttpUtils {
     return Optional.ofNullable(result);
   }
 
-  private static Optional<HttpUtilsResponse> executeBytes(String url, String method, String body,
-      Map<String, String> headerMap) {
+  private static Optional<HttpUtilsResponse> executeBytes(String url, String method, String body, Map<String, String> headerMap) {
     Optional<Response> optional = doExecute(url, method, body, headerMap);
     HttpUtilsResponse result = new HttpUtilsResponse();
     try {
@@ -133,40 +131,16 @@ public class HttpUtils {
     return put(url, body, null);
   }
 
-  public static Optional<HttpUtilsResponse> put(String url, String body,
-      Map<String, String> headerMap) {
+  public static Optional<HttpUtilsResponse> put(String url, String body, Map<String, String> headerMap) {
     return executeString(url, PUT, body, headerMap);
   }
 
-  static class HttpUtilsResponse {
-
+  @Data
+  public static class
+  HttpUtilsResponse {
     Integer code;
     String StringBody;
     byte[] bytesBody;
-
-    public Integer getCode() {
-      return code;
-    }
-
-    public void setCode(Integer code) {
-      this.code = code;
-    }
-
-    public String getStringBody() {
-      return StringBody;
-    }
-
-    public void setStringBody(String stringBody) {
-      StringBody = stringBody;
-    }
-
-    public byte[] getBytesBody() {
-      return bytesBody;
-    }
-
-    public void setBytesBody(byte[] bytesBody) {
-      this.bytesBody = bytesBody;
-    }
   }
 
 
