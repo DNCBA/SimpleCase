@@ -1,8 +1,6 @@
 package com.mhc.io.BIO;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -46,17 +44,24 @@ public class BIOServer {
     private void process(Socket socket) {
         try {
             InputStream inputStream = socket.getInputStream();
+            OutputStream outputStream = socket.getOutputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line = null;
             while (null != (line = bufferedReader.readLine())){
                 System.out.println("BIO收到信息："+line);
             }
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+            bufferedWriter.write("hello is BIO");
+
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
 
-
+    public static void main(String[] args) {
+        BIOServer bioServer = new BIOServer(8090);
+        bioServer.listener();
     }
 
 }

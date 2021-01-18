@@ -30,7 +30,7 @@ public class NIOClient {
 
     public NIOClient start(){
         try {
-            this.socketChannel = SocketChannel.open(new InetSocketAddress(InetAddress.getLocalHost(),8089));
+            this.socketChannel = SocketChannel.open(new InetSocketAddress(InetAddress.getLocalHost(),port));
             socketChannel.configureBlocking(false);
             socketChannel.register(this.selector,SelectionKey.OP_READ);
             System.out.println("NIO客户端启动成功");
