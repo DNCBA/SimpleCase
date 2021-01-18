@@ -22,8 +22,8 @@
     > com.mhc.rmi   
 * rpc框架之webservice
     > com.mhc.webservice
-* rpc框架之dubbo
-    > com.mhc.dubbo 
+* rpc框架之自实现
+    > com.mhc.rpc
 * zookeeper使用java操作
     > com.mhc.zookeeper
 * redis使用java操作
