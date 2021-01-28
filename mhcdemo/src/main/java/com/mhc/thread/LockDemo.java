@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
+import java.sql.Time;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
@@ -17,6 +18,42 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LockDemo {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LockDemo.class);
+
+
+    @Test
+    public void testCondition2() throws InterruptedException {
+        ReentrantLock lock = new ReentrantLock();
+        Condition condition = lock.newCondition();
+        Thread t = new Thread(() -> {
+            try {
+                lock.lock();
+                LOGGER.info("testCondition2 lock success");
+                condition.await();
+                LOGGER.info("testCondition2 signal");
+            } catch (Exception e) {
+                LOGGER.error("exception testCondition2", e);
+            } finally {
+                lock.unlock();
+                LOGGER.info("testCondition2 unlock");
+            }
+        }, "t");
+
+
+        t.start();
+
+        TimeUnit.SECONDS.sleep(5);
+        try {
+            lock.lock();
+            LOGGER.info("currentThread lock success");
+            condition.signalAll();
+            LOGGER.info("currentThread signalAll");
+        } finally {
+            lock.unlock();
+            LOGGER.info("currentThread unlock");
+        }
+
+        TimeUnit.SECONDS.sleep(10);
+    }
 
 
     @Test
@@ -100,7 +137,6 @@ public class LockDemo {
 
         });
         n1.setName("n1");
-
 
 
         Thread n2 = new Thread(() -> {
