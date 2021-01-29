@@ -41,16 +41,36 @@ public class LockDemo {
 
         t.start();
 
+
+        Thread get = new Thread(() -> {
+            try {
+                LOGGER.info("get T lock");
+                lock.lock();
+                LOGGER.info("get T lock success");
+                TimeUnit.SECONDS.sleep(5);
+            } catch (Exception e) {
+                LOGGER.error("exception get T ", e);
+            } finally {
+                lock.unlock();
+                LOGGER.info("get T unlock");
+            }
+        });
+
         TimeUnit.SECONDS.sleep(5);
         try {
             lock.lock();
             LOGGER.info("currentThread lock success");
+            TimeUnit.SECONDS.sleep(1);
             condition.signalAll();
+            get.start();
             LOGGER.info("currentThread signalAll");
         } finally {
             lock.unlock();
             LOGGER.info("currentThread unlock");
         }
+
+
+
 
         TimeUnit.SECONDS.sleep(10);
     }
