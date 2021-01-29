@@ -33,7 +33,7 @@ public class CPDemo {
     private ExecutorService consumerExecutors = new ThreadPoolExecutor(4, 8, 60, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> new Thread(r, "consumer" + consumerCount.incrementAndGet()));
 
     @Test
-    public void lockCPtest() throws InterruptedException {
+    public void lockCPTest() throws InterruptedException {
         providerStart(1);
         consumerStart(2);
         TimeUnit.MINUTES.sleep(10);
