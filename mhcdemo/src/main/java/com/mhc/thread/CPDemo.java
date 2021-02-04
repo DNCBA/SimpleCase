@@ -29,18 +29,18 @@ public class CPDemo {
     private Condition providerCondition = lock.newCondition();
     private Condition consumerCondition = lock.newCondition();
 
-    private ExecutorService providerExecutors = new ThreadPoolExecutor(4, 4, 60, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> new Thread(r, "provider" + providerCount.incrementAndGet()));
-    private ExecutorService consumerExecutors = new ThreadPoolExecutor(4, 4, 60, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> new Thread(r, "consumer" + consumerCount.incrementAndGet()));
+    private ExecutorService providerExecutors = new ThreadPoolExecutor(4, 8, 60, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> new Thread(r, "provider" + providerCount.incrementAndGet()));
+    private ExecutorService consumerExecutors = new ThreadPoolExecutor(4, 8, 60, TimeUnit.SECONDS, new SynchronousQueue<>(), r -> new Thread(r, "consumer" + consumerCount.incrementAndGet()));
 
     @Test
-    public void lockCPtest() throws InterruptedException {
-        providerStart(9);
-        consumerStart(10);
+    public void lockCPTest() throws InterruptedException {
+        providerStart(1);
+        consumerStart(2);
         TimeUnit.MINUTES.sleep(10);
     }
 
     private void consumerStart(final Integer timeMs) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             consumerExecutors.submit(() -> {
                 MDC.put("traceId", RandomStringUtils.random(8, true, true));
                 while (true) {
@@ -52,13 +52,9 @@ public class CPDemo {
                             LOGGER.info("thread [{}] consumer await and signalAll  size [{}]", Thread.currentThread().getName(), size);
                             providerCondition.signalAll();
                             consumerCondition.await();
-                            return;
                         }
-                        Integer product = null;
-                        if (size > 0) {
-                            product = context.pop();
-                            TimeUnit.MILLISECONDS.sleep(timeMs);
-                        }
+                        Integer product = context.pop();
+                        TimeUnit.MILLISECONDS.sleep(timeMs);
 
                         LOGGER.info("thread [{}] consumer {} success  size [{}]", Thread.currentThread().getName(), product, size);
                     } catch (Exception e) {
@@ -74,7 +70,7 @@ public class CPDemo {
     }
 
     private void providerStart(final Integer timeMs) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             providerExecutors.submit(() -> {
                 MDC.put("traceId", RandomStringUtils.random(8, true, true));
                 while (true) {
@@ -86,14 +82,10 @@ public class CPDemo {
                             LOGGER.info("thread [{}] provider await signalAll size [{}]", Thread.currentThread().getName(), size);
                             consumerCondition.signalAll();
                             providerCondition.await();
-                            return;
                         }
-                        Integer product = null;
-                        if (size < contextSize) {
-                            product = this.productGenerator.incrementAndGet();
-                            context.add(product);
-                            TimeUnit.MILLISECONDS.sleep(timeMs);
-                        }
+                        Integer product = this.productGenerator.incrementAndGet();
+                        context.add(product);
+                        TimeUnit.MILLISECONDS.sleep(timeMs);
                         LOGGER.info("thread [{}] provider {} success  size [{}]", Thread.currentThread().getName(), product, size);
                     } catch (Exception e) {
                         LOGGER.error("exception provider thread [{}] ", Thread.currentThread().getName(), e);
