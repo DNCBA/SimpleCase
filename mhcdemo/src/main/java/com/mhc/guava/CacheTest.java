@@ -37,19 +37,30 @@ public class CacheTest {
 
         LoadingCache<Object, Object> loadingCache = CacheBuilder.from("expireAfterWrite=1m,maximumSize=1000")
                 .build(new CacheLoader<Object, Object>() {
-            @Override
-            public Object load(Object o) throws Exception {
-                System.out.println("load" + LocalDateTime.now().toString());
-                return "testCache";
-            }
-        });
+                    @Override
+                    public Object load(Object o) throws Exception {
+                        TimeUnit.SECONDS.sleep(10);
+                        System.out.println("load" + LocalDateTime.now().toString());
+                        return "testCache";
+                    }
+                });
 
+        for (int i = 0; i < 10; i++) {
+            Thread t = new Thread(() -> {
+                try {
+                    System.out.println(Thread.currentThread().getName() + " load key");
+                    Object result = loadingCache.get("aaa");
+                    System.out.println(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        while (true) {
-            Object aaa = loadingCache.get("aaa");
-            System.out.println(aaa + LocalDateTime.now().toString());
-            TimeUnit.SECONDS.sleep(60);
+            });
+            t.setName(i + "");
+            t.start();
         }
+
+        TimeUnit.MINUTES.sleep(2);
 
 
     }
