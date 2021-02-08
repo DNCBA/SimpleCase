@@ -2,7 +2,9 @@ package com.mhc.redis;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.redisson.Redisson;
+import org.redisson.api.RBucket;
 import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
@@ -32,6 +34,36 @@ public class RedissonTest {
         config.useSingleServer().setAddress("redis://127.0.0.1:6379");
 
         this.redissonClient = Redisson.create(config);
+    }
+
+
+    @Test
+    public void testBucket() throws InterruptedException {
+        RBucket<Object> bucket = redissonClient.getBucket("bucket1");
+        RLock lock = redissonClient.getLock("local4");
+
+
+        for (int i = 0; i < 10; i++) {
+            Thread t = new Thread(() -> {
+                try {
+                    lock.lock();
+                    Object result = bucket.get();
+                    if (null == result) {
+                        bucket.set(Thread.currentThread().getName());
+                    }
+                    Object out = bucket.get();
+                    LOGGER.info(out.toString());
+                } catch (Exception e) {
+                    LOGGER.error("exception ", e);
+                } finally {
+                    lock.unlock();
+                }
+            });
+            t.setName(i + "");
+            t.start();
+        }
+
+        TimeUnit.MINUTES.sleep(5);
     }
 
 
