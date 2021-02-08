@@ -16,6 +16,40 @@ public class ThreadPoolDemo {
 
 
     @Test
+    public void testTerminated() {
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+        for (int i = 0; i < 10; i++) {
+            pool.submit(() -> {
+                try {
+                    LOGGER.info(" {} start", Thread.currentThread().getName());
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    LOGGER.error("exception interrupted ", e);
+                } finally {
+                    LOGGER.info(" {} finish", Thread.currentThread().getName());
+                }
+            });
+        }
+
+        while (!pool.isTerminated()) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+                LOGGER.info("isTerminated {}",pool.isTerminated());
+                LOGGER.info("isShutdown {}",pool.isShutdown());
+                LOGGER.info("getActiveCount {}",pool.getActiveCount());
+                LOGGER.info("getQueue.size {}",pool.getQueue().size());
+                LOGGER.info("getCompletedTaskCount {}",pool.getCompletedTaskCount());
+            } catch (InterruptedException e) {
+                LOGGER.error("exception dispatch sleep ", e);
+                Thread.interrupted();
+            }
+        }
+
+        LOGGER.info("pool task all finish");
+    }
+
+
+    @Test
     public void testCallable() throws ExecutionException, InterruptedException, TimeoutException {
         ExecutorService pool = Executors.newCachedThreadPool();
 
