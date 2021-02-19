@@ -21,7 +21,6 @@ import java.util.Properties;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})}
 )
-@Component
 public class QueryIntercept implements Interceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QueryIntercept.class);

@@ -18,7 +18,6 @@ import javax.sql.DataSource;
  * @date ：2021-02-19 16:29
  */
 @Configuration
-@ComponentScan("com.mhc.mybatis.demo.config")
 @MapperScan("com.mhc.mybatis.demo.mapper")
 public class MybatisConfig {
 
