@@ -4,10 +4,7 @@ import com.mhc.mybatis.demo.config.MybatisConfig;
 import com.mhc.mybatis.demo.mapper.AssistantMapper;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-/**
- * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2021-02-19 16:31
- */
+
 public class BootStrap {
 
     public static void main(String[] args) {
@@ -17,7 +14,7 @@ public class BootStrap {
         AssistantMapper assistantMapper = context.getBean(AssistantMapper.class);
 
 
-        String result = assistantMapper.findById();
+        String result = assistantMapper.findById("1");
 
 
         System.out.println(result);

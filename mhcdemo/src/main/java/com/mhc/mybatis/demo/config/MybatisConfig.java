@@ -8,15 +8,10 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
-/**
- * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2021-02-19 16:29
- */
 @Configuration
 @MapperScan("com.mhc.mybatis.demo.mapper")
 public class MybatisConfig {
@@ -39,7 +34,7 @@ public class MybatisConfig {
         Environment environment = new Environment("development", transactionFactory, getDataSource());
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration(environment);
         //注册拦截器
-        configuration.addInterceptor(new QueryIntercept());
+        configuration.addInterceptor(new QueryInterceptor());
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         return sqlSessionFactory;
     }
