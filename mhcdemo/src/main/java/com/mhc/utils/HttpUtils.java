@@ -8,47 +8,48 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.Proxy;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author ：menghui.cao, menghui.cao@leyantech.com
- * @date ：2020-08-19 20:44
- */
 public class HttpUtils {
 
   private static final String GET = "GET";
   private static final String POST = "POST";
   private static final String DELETE = "DELETE";
   private static final String PUT = "PUT";
+  private static final Integer CONNECT_TIME_OUT = 2;
+  private static final Integer READ_TIME_OUT = 10;
+  private static final Integer WRITE_TIME_OUT = 10;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
 
-
-  protected static OkHttpClient httpClient;
-  protected static MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
-
+  private static OkHttpClient httpClient;
+  private static MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
 
   static {
-    Builder builder = new Builder();
-    builder.connectTimeout(60, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
-        .writeTimeout(60, TimeUnit.SECONDS);
-    httpClient = builder.build();
+    httpClient = new Builder().connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
+            .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
+            .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
+            .build();
   }
 
-
-  protected static Optional<Response> doExecute(String url, String method, String body, Map<String, String> headerMap) {
+  private static Optional<Response> doExecute(String url, String method, String body, Map<String, String> headerMap, Boolean proxy) {
     StopWatch stopWatch = StopWatch.create();
+    stopWatch.start();
     Request.Builder requestBuilder = new Request.Builder();
     RequestBody requestBody = null;
     Headers headers = null;
     Request request = null;
     Response response = null;
     try {
+      OkHttpClient proxyClient =null;
+      if (proxy) {
+        Proxy proxyConfig = ProxyProviderUtils.RandomProxy();
+        proxyClient = httpClient.newBuilder().proxy(proxyConfig).build();
+      }
       Request.Builder builder = requestBuilder.url(url);
-
       if (StringUtils.isNotBlank(body)) {
         requestBody = RequestBody.create(MEDIA_TYPE_JSON, body);
       }
@@ -58,8 +59,12 @@ public class HttpUtils {
         builder.headers(headers);
       }
       request = builder.build();
-      LOGGER.info("HttpUtils doExecute start rep:{}", request);
-      response = httpClient.newCall(request).execute();
+      LOGGER.debug("HttpUtils doExecute start rep:{}", request);
+      if (proxy && null != proxy){
+        response = proxyClient.newCall(request).execute();
+      }else {
+        response = httpClient.newCall(request).execute();
+      }
     } catch (Exception e) {
       LOGGER.error("HttpUtils execute error {} rep:{}", stopWatch.getTime(TimeUnit.MILLISECONDS), request, e);
     }
@@ -69,8 +74,8 @@ public class HttpUtils {
   }
 
 
-  private static Optional<HttpUtilsResponse> executeString(String url, String method, String body, Map<String, String> headerMap) {
-    Optional<Response> optional = doExecute(url, method, body, headerMap);
+  private static Optional<HttpUtilsResponse> executeString(String url, String method, String body, Map<String, String> headerMap, Boolean proxy) {
+    Optional<Response> optional = doExecute(url, method, body, headerMap, proxy);
     HttpUtilsResponse result = null;
     try {
       if (optional.isPresent()) {
@@ -85,8 +90,8 @@ public class HttpUtils {
     return Optional.ofNullable(result);
   }
 
-  private static Optional<HttpUtilsResponse> executeBytes(String url, String method, String body, Map<String, String> headerMap) {
-    Optional<Response> optional = doExecute(url, method, body, headerMap);
+  private static Optional<HttpUtilsResponse> executeBytes(String url, String method, String body, Map<String, String> headerMap, Boolean proxy) {
+    Optional<Response> optional = doExecute(url, method, body, headerMap, proxy);
     HttpUtilsResponse result = new HttpUtilsResponse();
     try {
       if (optional.isPresent()) {
@@ -102,37 +107,39 @@ public class HttpUtils {
 
 
   public static Optional<HttpUtilsResponse> get(String url) {
-    return get(url, null);
+    return get(url, null, false);
   }
 
-  public static Optional<HttpUtilsResponse> get(String url, Map<String, String> headerMap) {
-    return executeString(url, GET, null, headerMap);
+  public static Optional<HttpUtilsResponse> get(String url
+          , Map<String, String> headerMap, Boolean proxy) {
+    return executeString(url, GET, null, headerMap, proxy);
   }
 
   public static Optional<HttpUtilsResponse> post(String url, String body) {
-    return post(url, body, null);
+    return post(url, body, null, false);
   }
 
-  public static Optional<HttpUtilsResponse> post(String url, String body,
-      Map<String, String> headerMap) {
-    return executeString(url, POST, body, headerMap);
+  public static Optional<HttpUtilsResponse> post(String url, String body
+          , Map<String, String> headerMap, Boolean proxy) {
+    return executeString(url, POST, body, headerMap, proxy);
   }
 
   public static Optional<HttpUtilsResponse> delete(String url, String body) {
-    return delete(url, body, null);
+    return delete(url, body, null, false);
   }
 
-  public static Optional<HttpUtilsResponse> delete(String url, String body,
-      Map<String, String> headerMap) {
-    return executeString(url, DELETE, body, headerMap);
+  public static Optional<HttpUtilsResponse> delete(String url, String body
+          , Map<String, String> headerMap, Boolean proxy) {
+    return executeString(url, DELETE, body, headerMap, proxy);
   }
 
   public static Optional<HttpUtilsResponse> put(String url, String body) {
-    return put(url, body, null);
+    return put(url, body, null, false);
   }
 
-  public static Optional<HttpUtilsResponse> put(String url, String body, Map<String, String> headerMap) {
-    return executeString(url, PUT, body, headerMap);
+  public static Optional<HttpUtilsResponse> put(String url, String body
+          , Map<String, String> headerMap, Boolean proxy) {
+    return executeString(url, PUT, body, headerMap, proxy);
   }
 
   @Data
