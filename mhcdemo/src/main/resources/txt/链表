@@ -1,0 +1,925 @@
+链表
+
+96
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode slowDummy = new ListNode(0);
+        ListNode slowCurr = slowDummy;
+        ListNode hightDummy = new ListNode(0);
+        ListNode hightCurr = hightDummy;
+
+        while (null != head) {
+            if (x > head.val) {
+                slowCurr.next = head;
+                slowCurr = head;
+            } else {
+                hightCurr.next = head;
+                hightCurr = head;
+            }
+            head = head.next;
+        }
+
+        hightCurr.next = null;
+
+        slowCurr.next = hightDummy.next;
+        return slowDummy.next;
+    }
+}
+
+113
+public class Solution {
+
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode curr = dummy;
+
+        while (null != curr.next && null != curr.next.next) {
+            if ( curr.next.val == curr.next.next.val) {
+                int val = curr.next.val;
+                while (null != curr.next && val == curr.next.val) {
+                    curr.next = curr.next.next;
+                }
+            } else {
+                curr = curr.next;
+            }
+        }
+
+        return dummy.next;
+    }
+}
+
+
+106
+public class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        if (null == head) {
+            return null;
+        }
+        if (null == head.next) {
+            return new TreeNode(head.val);
+        }
+
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode preSlow = dummy;
+        while(null != fast && null != fast.next) {
+            fast = fast.next.next;
+            slow = slow.next;
+            preSlow = preSlow.next;
+        }
+
+        //divide
+        TreeNode root = new TreeNode(slow.val);
+        TreeNode right = sortedListToBST(slow.next);
+        preSlow.next = null;
+        TreeNode left = sortedListToBST(head);
+
+
+        //conquer
+        root.left = left;
+        root.right = right;
+
+        return root;
+
+    }
+}
+
+
+
+104
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+
+        ListNode curr = dummy;
+
+        while (null != l1 && null != l2) {
+            if (l1.val < l2.val) {
+                curr.next = l1;
+                curr = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                curr = l2;
+                l2 = l2.next;
+            }
+        }
+
+        while (null != l1) {
+            curr.next = l1;
+            curr = l1;
+            l1 = l1.next;
+        }
+
+        while (null != l2) {
+            curr.next = l2;
+            curr = l2;
+            l2 = l2.next;
+        }
+
+
+        return dummy.next;
+
+    }
+}
+
+
+public class Solution {
+    public ListNode mergeKLists(List<ListNode> lists) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+
+        Queue<ListNode> queue = new PriorityQueue((a, b) -> {
+            ListNode n1 = (ListNode) a;
+            ListNode n2 = (ListNode) b;
+            if (n1.val == n2.val) {
+                return 0;
+            } else if (n1.val < n2.val) {
+                return  -1;
+            } else {
+                return 1;
+            }
+        });
+
+        for (int i = 0; i < lists.size(); i++) {
+            ListNode node = lists.get(i);
+            if (null != node) {
+                queue.offer(node);
+            }
+        }
+
+        if (queue.isEmpty()) {
+            break;
+        }
+
+        while (!queue.isEmpty()) {
+            ListNode node = queue.poll();
+            curr.next = node;
+            curr = node;
+            if (null != node.next) {
+                queue.offer(node.next);
+            }
+        }
+
+
+        return dummy.next;
+
+    }
+}
+
+
+
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+
+        Queue<ListNode> queue = new PriorityQueue((a, b) -> {
+            ListNode n1 = (ListNode) a;
+            ListNode n2 = (ListNode) b;
+            if (n1.val == n2.val) {
+                return 0;
+            } else if (n1.val < n2.val) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+        for (int i = 0; i < lists.length; i++) {
+            if (null != lists[i]){
+                queue.offer(lists[i]);
+            }
+        }
+
+        while(!queue.isEmpty()) {
+            ListNode node = queue.poll();
+            curr.next = node;
+            curr = node;
+            if (null != node.next) {
+                queue.offer(node.next);
+            }
+        }
+
+        return dummy.next;
+    }
+}
+
+
+105
+class Solution {
+    public Node copyRandomList(Node head) {
+        Node curr = head;
+        //copy
+        while (null != curr) {
+            Node node = new Node(curr.val);
+            node.next = curr.next;
+            curr.next = node;
+            curr = node.next;
+        }
+        //random
+        curr = head;
+        while (null != curr) {
+            if (null != curr.random) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        //split
+        Node dummy = new Node(0);
+        Node result = dummy;
+        curr = head;
+        while (null != curr) {
+            result.next = curr.next;
+            result = curr.next; 
+            curr.next = curr.next.next;
+            curr = curr.next;
+        }
+
+        return dummy.next;
+    }
+}
+
+
+
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        RandomListNode curr = head;
+        //copy
+        while (null != curr) {
+            RandomListNode node = new RandomListNode(curr.lable);
+            node.next = curr.next;
+            curr.next = node;
+            curr = node.next;
+        }
+
+        //random
+        curr = head;
+        while (null != curr) {
+            if (null != curr.random) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        //split
+        curr = head;
+        RandomListNode dummy = new RandomListNode(0);
+        RandomListNode result = dummy;
+        while (null != curr && null != curr.next) {
+            result.next = curr.next;
+            result = curr.next;
+            curr.next = curr.next.next;
+            curr = curr.next;
+        }
+
+        //result
+        return dummy.result;
+    }
+}
+
+
+
+99
+class Solution {
+    public void reorderList(ListNode head) {
+        //check
+        if (null == head || null == head.next) {
+            return;
+        }
+
+        //medium
+        ListNode fast = head;
+        ListNode slow = head;
+        while (null != fast && null != fast.next) {
+            slow = slow.next;
+            fast =fast.next.next;
+        }
+
+
+        //revers
+        ListNode pre = null;
+        ListNode curr = slow.next;
+        slow.next = null;
+        while (null != curr) {
+            ListNode temp = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = temp;
+        }
+
+        //merge
+        curr = head;
+        while (null != curr && null != pre) {
+            ListNode temp = pre.next;
+            pre.next = curr.next;
+            curr.next = pre;
+            curr = pre.next;
+            pre = temp;
+        }
+
+        return;
+
+    }
+}
+
+
+
+98
+public class Solution {
+
+    // mergeSort.
+    public ListNode sortList(ListNode head) {
+        //check
+        if (null == head || null == head.next) {
+            return head;
+        }
+
+        //middle
+        ListNode middle = findMiddle(head);
+
+
+        //divide
+        ListNode right = sortList(middle.next);
+        middle.next = null;
+        ListNode left = sortList(head);
+
+        //conquer
+        ListNode result = merge(left,right);
+
+        //result
+        return result;
+    }
+
+    /**
+     * merge.
+     **/
+    private ListNode merge(ListNode left, ListNode right) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        while (null != left && null != right) {
+            if (left.val < right.val) {
+                curr.next = left;
+                curr = left;
+                left = left.next;
+            } else {
+                curr.next = right;
+                curr = right;
+                right = right.next;
+            }
+        }
+        while (null != left) {
+            curr.next = left;
+            curr = left;
+            left = left.next;
+        }
+        while (null != right) {
+            curr.next = right;
+            curr = right;
+            right = right.next;
+        }
+        return dummy.next;
+    }
+
+    /**
+     * findMiddle.
+     **/
+    private ListNode findMiddle(ListNode node) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = node;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        while (null != fast && null != fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+}
+
+36
+
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode curr = dummy;
+        for (int i = 1; i < left; i++) {
+            curr = curr.next;
+        }
+
+        ListNode preLeft = curr;
+        ListNode leftNode = curr.next;
+        ListNode rightNode = leftNode;
+        ListNode postRight = rightNode.next;
+
+        for (int i = left; i < right; i++) {
+            ListNode temp = postRight.next;
+            postRight.next = rightNode;
+            rightNode = postRight;
+            postRight = temp;
+        }
+
+        preLeft.next = rightNode;
+        leftNode.next = postRight;
+        return dummy.next;
+    }
+}
+
+
+
+
+103
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (null != fast && null != fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (null != fast && null != fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                ListNode curr = head;
+                while (curr != slow) {
+                    curr = curr.next;
+                    slow = slow.next;
+                }
+                return curr;
+            }
+        }
+        return null;
+    }
+}
+
+228
+public class Solution {
+
+    public ListNode middleNode(ListNode head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        while (null != fast && null != fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+}
+
+
+452
+public class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode pre = dummy;
+        ListNode curr = head;
+
+        while (null != curr) {
+            if (val == curr.val) {
+                pre.next = curr.next;
+                curr = curr.next;
+            } else {
+                pre = pre.next;
+                curr = curr.next;
+            }
+        }
+
+        return dummy.next;
+    }
+}
+
+217 
+class Solution {
+    public ListNode removeDuplicateNodes(ListNode head) {
+        ListNode curr = head;
+        while (null != curr) {
+            int val = curr.val;
+            ListNode pre = curr;
+            ListNode now = curr.next;
+            while (null != now) {
+                if (val == now.val) {
+                    pre.next = now.next;
+                    now = now.next;
+                } else {
+                    pre = pre.next;
+                    now = now.next;
+                }
+            }
+            curr = curr.next;
+        }
+        return head;
+    }
+}
+
+451
+public class Solution {
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next= head;
+
+        ListNode pre = dummy;
+        ListNode curr = head;
+
+        while (null != curr && null != curr.next) {
+            int val = curr.val;
+
+            curr.val = curr.next.val;
+            curr.next.val = val;
+
+            pre = pre.next.next;
+            curr = curr.next.next;
+        }
+
+        return dummy.next;
+    }
+}
+
+
+372
+public class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
+
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next= head;
+
+        ListNode fast = dummy;
+
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+
+        ListNode slow = dummy;
+        while (null != fast) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+
+        return dummy.next;
+    }
+}
+
+
+167
+public class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+
+        int val = 0;
+        while (null != l1 && null != l2) {
+            int sum = l1.val + l2.val + val;
+            val = sum / 10;
+
+            ListNode node = new ListNode(sum % 10);
+            curr.next = node;
+            curr = node;
+
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+
+        while (null != l1) {
+            int sum = l1.val +  val;
+            val = sum / 10;
+
+            ListNode node = new ListNode(sum % 10);
+            curr.next = node;
+            curr = node;
+
+            l1 = l1.next;
+        }
+
+        while (null != l2) {
+            int sum = l2.val +  val;
+            val = sum / 10;
+
+            ListNode node = new ListNode(sum % 10);
+            curr.next = node;
+            curr = node;
+
+            l2 = l2.next;
+        }
+
+        if (val != 0) {
+            ListNode node = new ListNode(val);
+            curr.next = node;
+            curr = node;
+        }
+
+        return dummy.next;
+    }
+}
+
+
+166
+public class Solution {
+    /*
+     * @param head: The first node of linked list.
+     * @param n: An integer
+     * @return: Nth to last node of a singly linked list. 
+     */
+    public ListNode kthToLast(ListNode head, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode fast = dummy;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        } 
+
+        ListNode slow = dummy;
+        
+        while (null != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
+    }
+}
+
+
+class Solution {
+    public int kthToLast(ListNode head, int k) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode fast = dummy;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
+        } 
+
+        ListNode slow = dummy;
+        
+        while (null != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow.val;
+    }
+}
+
+
+
+165
+public class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        while (null != l1 && null != l2) {
+            if (l1.val < l2.val) {
+                curr.next = l1;
+                curr = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                curr = l2;
+                l2 = l2.next;
+            }
+        }
+
+        while (null != l1 || null != l2) {
+            if (null != l1) {
+                curr.next = l1;
+                curr = l1;
+                l1 = l1.next;
+            }
+            if (null != l2) {
+                curr.next = l2;
+                curr = l2;
+                l2 = l2.next;
+            }
+        }
+
+        return dummy.next;
+    }
+}
+
+
+
+
+113
+public class Solution {
+
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode curr = dummy;
+
+        while (null != curr.next && null != curr.next.next) {
+            if ( curr.next.val == curr.next.next.val) {
+                int val = curr.next.val;
+                while (null != curr.next && val == curr.next.val) {
+                    curr.next = curr.next.next;
+                }
+            } else {
+                curr = curr.next;
+            }
+        }
+
+        return dummy.next;
+    }
+}
+
+35
+public class Solution {
+    public ListNode reverse(ListNode head) {
+        ListNode pre = null;
+        ListNode curr = head;
+        while (null != curr) {
+            ListNode temp = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = temp;
+        }
+        return pre;
+    }
+}
+
+
+221
+public class Solution {
+
+    public ListNode addLists2(ListNode l1, ListNode l2) {
+        Stack<Integer> s1 = new Stack();
+        Stack<Integer> s2 = new Stack();
+        Stack<Integer> s3 = new Stack();
+
+        ListNode c1 = l1;
+        ListNode c2 = l2;
+        while (null != c1 || null != c2) {
+            if (null != c1) {
+                s1.push(c1.val);
+                c1 = c1.next;
+            }
+
+            if (null != c2) {
+                s2.push(c2.val);
+                c2 = c2.next;
+            }
+        }
+
+        int overflow = 0;
+        while(!s1.isEmpty() && !s2.isEmpty()) {
+            int sum = s1.pop() + s2.pop() + overflow;
+            overflow = sum / 10;
+            int val = sum % 10;
+            s3.push(val);
+        }
+
+        while (!s1.isEmpty() || !s2.isEmpty()) {
+            if (!s1.isEmpty()) {
+                int sum = s1.pop() + overflow;
+                overflow = sum / 10;
+                int val = sum % 10;
+                s3.push(val);
+            } else {
+                int sum = s2.pop() + overflow;
+                overflow = sum / 10;
+                int val = sum % 10;
+                s3.push(val);
+            }
+        }
+
+        if (overflow != 0) {
+            s3.push(overflow);
+        }
+
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        while(!s3.isEmpty()) {
+            curr.next = new ListNode(s3.pop());
+            curr = curr.next;
+        }
+        return dummy.next;
+    }
+}
+
+333
+class Solution {
+    public String[] permutation(String s) {
+
+    }
+}
+
+
+
+378
+public class Solution {
+    public DoublyListNode bstToDoublyList(TreeNode root) {
+        List<Integer> list =  dfs(root);
+
+        DoublyListNode dummy = new DoublyListNode(0);
+        DoublyListNode pre = dummy;
+        for (Integer val : list) {
+            DoublyListNode curr = new DoublyListNode(val);
+            pre.next = curr;
+            curr.prev = pre;
+            pre = curr;
+        }
+        return dummy.next;
+    }
+
+
+    private List<Integer> dfs(TreeNode root) {
+        List<Integer> list = new ArrayList();
+        if (null == root) {
+            return list;
+        }
+
+        List<Integer> left = dfs(root.left);
+        List<Integer> right = dfs(root.right);
+
+        list.addAll(left);
+        list.add(root.val);
+        list.addAll(right);
+        return list;
+    }
+}
+
+
+
+
+class Solution {
+    public Node treeToDoublyList(Node root) {
+        List<Node> list = dfs(root);
+
+        Node dummy = new Node(0);
+        Node pre = dummy;
+        for (Node curr : list) {
+            pre.left = curr;
+            pre = curr;
+        }
+
+        pre.left = dummy.left;
+        dummy.left.right = pre;
+        return dummy.left;
+    }
+
+
+    private List<Node> dfs(Node root) {
+        List<Node> list = new ArrayList();
+        if (null == root) {
+            return list;
+        }
+
+        List<Node> left = dfs(root.left);
+        List<Node> right = dfs(root.right);
+
+        list.addAll(left);
+        list.add(root);
+        list.addAll(right);
+        return list;
+    }
+}
+
+
+170
+456
+
+
+
+
+
+

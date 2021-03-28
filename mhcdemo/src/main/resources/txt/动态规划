@@ -1,0 +1,605 @@
+动态规划
+1.merge stor;
+public class Temp {
+
+    public int[] mergeSort(int[] nums) {
+        if (0 == nums.length || 1 == nums.length ) {
+            return nums;
+        }
+
+        int start = 0;
+        int end = nums.length - 1;
+        int mid = start + (end - start) / 2 + 1;
+        int[] left = mergeSort(subArray(nums, start, mid));
+        int[] right = mergeSort(subArray(nums, mid, end + 1));
+
+        return merge(left,right);
+    }
+
+
+    private int[] subArray(int[] nums, int start, int end) {
+        int[] result = new int[end - start];
+        int resultIndex = 0;
+        for (int i =  start; i < end; i++) {
+            result[resultIndex] = nums[i];
+            resultIndex++;
+        }
+        return result;
+    }
+
+
+    private int[] merge(int[] l, int[] r) {
+        int[] result = new int[l.length + r.length];
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int resultIndex = 0;
+        while (resultIndex < result.length) {
+
+            if (leftIndex < l.length && rightIndex < r.length) {
+                int leftNode = l[leftIndex];
+                int rightNode = r[rightIndex];
+
+                if (leftNode < rightNode) {
+                    result[resultIndex] = leftNode;
+                    leftIndex++;
+                } else {
+                    result[resultIndex] = rightNode;
+                    rightIndex++;
+                }
+            }else {
+                if (leftIndex < l.length) {
+                    result[resultIndex] = l[leftIndex];
+                    leftIndex++;
+                }
+
+                if (rightIndex < r.length) {
+                    result[resultIndex] = r[rightIndex];
+                    resultIndex++;
+                }
+            }
+            resultIndex++;
+        }
+        return result;
+    }
+}
+
+
+
+2.quit stor;
+
+public class QuickSort {
+    public static void main(String[] args) {
+        int[] arr = {5, 1, 7, 3, 1, 6, 9, 4};
+
+        quickSort(arr, 0, arr.length - 1);
+
+        for (int i : arr) {
+            System.out.print(i + "\t");
+        }
+    }
+
+    /**
+     * @param arr        待排序列
+     * @param leftIndex  待排序列起始位置
+     * @param rightIndex 待排序列结束位置
+     */
+    private static void quickSort(int[] arr, int leftIndex, int rightIndex) {
+        if (leftIndex >= rightIndex) {
+            return;
+        }
+
+        int left = leftIndex;
+        int right = rightIndex;
+        //待排序的第一个元素作为基准值
+        int key = arr[left];
+
+        //从左右两边交替扫描，直到left = right
+        while (left < right) {
+            while (right > left && arr[right] >= key) {
+                //从右往左扫描，找到第一个比基准值小的元素
+                right--;
+            }
+
+            //找到这种元素将arr[right]放入arr[left]中
+            arr[left] = arr[right];
+
+            while (left < right && arr[left] <= key) {
+                //从左往右扫描，找到第一个比基准值大的元素
+                left++;
+            }
+
+            //找到这种元素将arr[left]放入arr[right]中
+            arr[right] = arr[left];
+        }
+        //基准值归位
+        arr[left] = key;
+        //对基准值左边的元素进行递归排序
+        quickSort(arr, leftIndex, left - 1);
+        //对基准值右边的元素进行递归排序。
+        quickSort(arr, right + 1, rightIndex);
+    }
+}
+
+109
+    public int minimumTotal(int[][] triangle) {
+        int x = triangle.length;
+        int y = triangle[x - 1].length;
+        int[][] stat = new int[x][y];
+
+        for (int i = 0; i < y; i++) {
+            stat[x - 1][i] = triangle[x - 1][i];
+        }
+
+        for (int row = x - 1; row > 0; row--) {
+            for (int col = 0; col < row ; col++) {
+                stat[row - 1][col] = Math.min(stat[row][col], stat[row][col + 1]) + triangle[row - 1][col];
+            }
+        }
+
+
+        return stat[0][0];
+    }
+
+
+114
+class Solution {
+    public int minPathSum(int[][] grid) {
+        //define
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+
+        //init
+        dp[0][0] = grid[0][0];
+        for (int x = 1; x < m; x++) {
+            dp[x][0] = dp[x - 1][0] + grid[x][0]; 
+        }
+        for (int y = 1; y < n; y++) {
+            dp[0][y] = dp[0][y-1] + grid[0][y];
+        }
+
+        //function
+        for (int row = 1; row < m; row++) {
+            for (int col = 1; col < n; col++) {
+                dp[row][col] = Math.min(dp[row - 1][col], dp[row][col -1]) + grid[row][col];
+            }
+        }
+
+        //return 
+        return dp[m-1][n-1];
+    }
+}
+
+
+public class Solution {
+    public int uniquePaths(int m, int n) {
+        //define
+        int[][] dp = new int[m][n];
+        
+
+        //init
+        dp[0][0] = 0;
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = 1;
+        }
+        for (int i = 1; i < n; i++) {
+            dp[0][i] = 1;
+        }
+
+
+        //function
+        for (int row = 1; row < m; row++) {
+            for (int col = 1; col < n; col++) {
+                dp[row][col] = dp[row - 1][col] + dp[row][col - 1];
+            }
+        }
+        
+        //result
+        return dp[m - 1][n - 1];
+    }
+}
+
+
+115
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        //define
+        int x = obstacleGrid.length;
+        int y = obstacleGrid[0].length;
+        int[][] dp = new int[x][y];
+
+        //init
+        if (1 == obstacleGrid[0][0]) {
+            dp[0][0] = 0;
+        } else {
+            dp[0][0] = 1;
+        }
+        for (int i = 1; i < x; i++) {
+            if (1 == obstacleGrid[i][0]) {
+                dp[i][0] = 0;
+            } else {
+                dp[i][0] = dp[i - 1][0];
+            }
+        }
+        for (int i = 1; i < y; i++) {
+            if (1 == obstacleGrid[0][i]) {
+                dp[0][i] = 0;
+            } else {
+                dp[0][i] = dp[0][i - 1];
+            }
+        }
+
+
+        //function
+        for (int row = 1; row < x; row++) {
+            for (int col = 1; col < y; col++) {
+                if (1 == obstacleGrid[row][col]) {
+                    dp[row][col] = 0;
+                } else {
+                    dp[row][col] = dp[row - 1][col] + dp[row][col - 1];
+                }
+            }
+        }
+
+        //result
+        return dp[x - 1][y - 1];
+    }
+}
+
+111
+class Solution {
+    public int climbStairs(int n) {
+        //check
+        if (0 == n || 1 == n || 2 == n) {
+            return n;
+        }
+
+        //define
+        int[] dp = new int[n];
+
+        //init
+        dp[0] = 1;
+        dp[1] = 2;
+
+        //function
+        for (int i = 2; i < n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        //result
+        return dp[n - 1];
+    }
+}
+
+
+
+110
+class Solution {
+    public int minPathSum(int[][] grid) {
+        //define
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+
+        //init
+        dp[0][0] = grid[0][0];
+        for (int x = 1; x < m; x++) {
+            dp[x][0] = dp[x - 1][0] + grid[x][0]; 
+        }
+        for (int y = 1; y < n; y++) {
+            dp[0][y] = dp[0][y-1] + grid[0][y];
+        }
+
+        //function
+        for (int row = 1; row < m; row++) {
+            for (int col = 1; col < n; col++) {
+                dp[row][col] = Math.min(dp[row - 1][col], dp[row][col -1]) + grid[row][col];
+            }
+        }
+
+        //return 
+        return dp[m-1][n-1];
+    }
+}
+
+
+109
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        //define
+        int x = triangle.size();
+        int y = triangle.get(x - 1).size();
+        int[][] dp = new int[x][y];
+
+
+        //init
+        for (int i = 0; i < y; i++) {
+            dp[x - 1][i] = triangle.get(x - 1).get(i);
+        }
+
+
+        //function
+        for (int row = x - 1; row > 0; row--) {
+            for (int col = 0; col < row; col++) {
+                dp[row - 1][col] = Math.min(dp[row][col], dp[row][col + 1]) + triangle.get(row - 1).get(col);
+            }
+        }
+
+        //result
+        return dp[0][0];   
+    }
+}
+
+
+
+117
+class Solution {
+    public boolean canJump(int[] nums) {
+        //define
+        int length = nums.length;
+        int[] dp = new int[length];
+
+        //init
+        dp[0] = 1;
+
+
+        //function
+        for (int i = 1; i < length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (1 == dp[j] && j + nums[j] >= i) {
+                    dp[i] = 1;
+                    break;
+                }
+            }
+        }
+
+        //result
+        return 1 == dp[length - 1];
+    }
+}
+
+
+
+
+
+
+class Solution {
+    public int jump(int[] nums) {
+        //define
+        int length = nums.length;
+        int[] dp = new int[length];
+
+        //init
+        dp[0] = 1;
+
+
+        //function
+        for (int i = 1; i < length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (0 != dp[j] && j + nums[j] >= i) {
+                    dp[i] = dp[j] + 1;
+                    break;
+                }
+            }
+        }
+
+        //result
+        return dp[length - 1] - 1;
+    }
+}
+
+
+116
+public class Solution {
+    public boolean canJump(int[] nums) {
+        //define
+        int length = nums.length;
+        int[] dp = new int[length];
+
+        //init
+        dp[0] = 1;
+
+        //function
+        for (int i = 1; i < length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (0 != dp[j] && j + nums[j] >= i) {
+                    dp[i] = dp[j] + 1;
+                    break;
+                }
+            }
+        }
+
+        //result
+        return (0 != dp[length - 1]);
+    }
+}
+
+
+107
+public class Solution {
+    public boolean wordBreak(String s, Set<String> wordSet) {
+        if (null == s || 0 == s.length()) {
+            return true;
+        }
+
+        //define
+        int length = s.length();
+        int[] dp = new int[length + 1];
+
+        //init
+        dp[0] = 1;
+
+        //function
+        for (int i = 0; i <= length; i++) {
+            for (int j = 0; j < i; j++) {
+                String temp = s.substring(j, i);
+                if (0 != dp[j] && wordSet.contains(temp)) {
+                    dp[i] = 1;
+                    break;
+                }
+            }
+        }
+
+        //result
+        return 0 != dp[length];
+    }
+}
+
+
+
+108
+public class Solution {
+
+    public int minCut(String s) {
+        //check
+        if (null == s || "" == s || 1 == s.length()) {
+            return 0;
+        }
+
+        //define
+        int length = s.length();
+        int[] dp = new int[length];
+
+        //init
+        dp[0] = 1;
+
+
+        //function
+        for (int i = 1; i < length; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 0; j < i + 1; j++) {
+                String temp = s.substring(j, i + 1);
+                if (0 == j) {
+                    if (check(temp)) {
+                        dp[i] = dp[j];
+                        break;
+                    }
+                } else {
+                    if (0 != dp[j - 1] && check(temp)) {
+                        min = Math.min(min,dp[j - 1] + 1);
+                        dp[i] = min;
+                    }
+                }
+            }
+        }
+
+        //result
+        return dp[length - 1] - 1;
+    }
+
+
+    private boolean check(String temp) {
+        if (null == temp || "" == temp || temp.length() == 1) {
+            return true;
+        }
+        int start = 0;
+        int end = temp.length() - 1;
+        while (start < end) {
+            if (temp.charAt(start) != temp.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+
+}
+
+
+
+
+76
+
+public class Solution {
+    public int longestIncreasingSubsequence(int[] nums) {
+        //define
+        int length = nums.length;
+        int[] dp = new int[length];
+
+        //init
+        for (int i = 0; i < length; i++) {
+            dp[i] = 1;
+        }
+
+        //function
+        for (int i = 1; i < length; i++) {
+            int max = Integer.MIN_VALUE;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    max = Math.max(max,dp[j] + 1);
+                    dp[i] = max;
+                }
+            }
+        }
+
+        //result
+        int result = Integer.MIN_VALUE;
+        for (int i = 0; i < length; i++) {
+            result = Math.max(result, dp[i]);
+        }
+        return result;
+
+
+
+    }
+}
+
+
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        //define
+        int length = nums.length;
+        int[] dp = new int[length];
+
+        //init
+        for (int i = 0; i < length; i++) {
+            dp[i] = 1;
+        }
+
+        //function
+        for (int i = 1; i < length; i++) {
+            int max = Integer.MIN_VALUE;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    max = Math.max(max,dp[j] + 1);
+                    dp[i] = max;
+                }
+            }
+        }
+
+        //result
+        int result = Integer.MIN_VALUE;
+        for (int i = 0; i < length; i++) {
+            result = Math.max(result, dp[i]);
+        }
+        return result;
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

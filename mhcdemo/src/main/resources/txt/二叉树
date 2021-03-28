@@ -1,0 +1,510 @@
+二叉树
+97
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        //divide
+        int l = maxDepth(root.left);
+        int r = maxDepth(root.right);
+
+        //conquer
+        return Math.max(l+1,r+1);
+    }
+}
+
+66
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> temp = new ArrayList();
+        if (null == root) {
+            return temp;
+        }
+
+        //divide
+        List l = preorderTraversal(root.left);
+        List r = preorderTraversal(root.root);
+
+        //conquer
+        temp.add(root.val);
+        temp.addAll(l);
+        temp.addAll(r);
+    }
+}
+
+
+
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList();
+        if (null == root) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+
+            result.add(node.val);
+
+            if (null != node.right) {
+                stack.push(node.right);
+            }
+
+            if (null != node.left) {
+                stack.push(node.left);
+            }
+            
+        }
+        return result;
+    }
+}
+
+
+
+475
+public class Solution {
+    public int maxPathSum2(TreeNode root) {
+        if (null == root){
+            return 0;
+        }
+
+        int l = maxPathSum2(root.left);
+        int r = maxPathSum2(root.right);
+
+        return root.val + Math.max(l,r);
+    }
+}
+
+
+448
+93
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return -1 != helper(root);
+    }
+
+
+    public int helper(TreeNode root) {
+       if(null == root) {
+           return 0;
+       }
+
+       int l = helper(root.left);
+       int r = helper(root.right);
+
+        if (-1 == l || -1 == r || Math.abs(l -r) > 1){
+            return -1;
+        }
+
+       return 1 + Math.max(l,r);
+    }
+
+}
+
+94
+class Solution {
+    public int maxPathSum(TreeNode root) {
+        if (null == root) {
+            return 0;
+        }
+
+        int l = maxPathSum(root.left);
+        int r = maxPathSum(root.right);
+
+        return Math.max(l,0) + Math.max(r,0) + root.val;
+    }
+}
+
+
+
+95
+
+节点的左子树只包含小于当前节点的数。
+节点的右子树只包含大于当前节点的数。
+所有左子树和右子树自身必须也是二叉搜索树。
+
+public class Solution {
+
+    class Result {
+        
+        Result(boolean bst, int min, int max) {
+            this.bst = bst;
+            this.min = min;
+            this.max = max;
+        }
+
+        boolean bst;
+        int min;
+        int max;
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        Result result = helper(root);
+        return result.bst;
+    }
+
+    private Result helper(TreeNode root) {
+        if (null == root) {
+            return new Result(true, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+        if (null == root.left && null == root.right) {
+            return new Result(true, root.val, root.val);
+        }
+
+
+        Result l = helper(root.left);
+        Result r = helper(root.right);
+
+        boolean lbst = null == root.left ? true : l.max < root.val;
+        boolean rbst = null == root.right ? true : r.min > root.val;
+        boolean bst = l.bst && r.bst && (lbst && rbst);
+        int min = Math.min(Math.min(l.min, r.min), root.val);
+        int max = Math.max(Math.max(l.max, r.max), root.val);
+        return new Result(bst,min,max);
+    }
+
+}
+
+88
+public class Solution {
+
+
+    class Result {
+        int rMax; //从root节点到任意节点最大值,可以不包含任意值
+        int bMax; //从任意点到任意点最大值
+
+        Result (int rMax, int bMax) {
+            this.rMax = rMax;
+            this.bMax = bMax;
+        }
+    }
+
+    public int maxPathSum(TreeNode root) {
+        Result r = pathSumHelper(root);
+        return r.bMax;
+    }
+
+    private Result pathSumHelper(TreeNode root) {
+        if (null == root) {
+            return new Result(0, Integer.MIN_VALUE);
+        }
+
+        Result lResult = pathSumHelper(root.left);
+        Result rResult = pathSumHelper(root.right);
+
+        int rMax = Math.max(lResult.rMax, rResult.rMax) + root.val;
+        rMax = Math.max(rMax, 0);
+
+        int bMax = Math.max(lResult.bMax, rResult.bMax);
+        bMax = Math.max(bMax, lResult.rMax + rResult.rMax + root.val);
+        return new Result(rMax, bMax);
+    }
+
+}
+
+69
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List result = new ArrayList();
+        if (null == root) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            List temp = new ArrayList();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                temp.add(node.val);
+                if (null != node.left) {
+                    queue.offer(node.left);
+                }
+                if (null != node.right) {
+                    queue.offer(node.right);
+                }
+            }
+            result.add(temp);
+        }
+        return result;
+    }
+}
+
+
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List result = new ArrayList();
+        if (null == root) {
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List temp = new ArrayList();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                temp.add(node.val);
+                if (null != node.left) {
+                    queue.offer(node.left);
+                }
+                if (null != node.right) {
+                    queue.offer(node.right);
+                }
+            }
+            result.add(temp);
+        }
+
+        List r = new ArrayList()
+        for (int i = result.size() - 1; i >= 0; i--) {
+            r.add(result.get(i));
+        }
+
+        return r;
+    }
+}
+
+
+86
+
+
+
+
+
+
+
+
+----------------------------------
+376
+public class Solution {
+
+
+    private List<List<Integer>> result = new ArrayList();
+
+    public List<List<Integer>> pathSum(TreeNode root, int target) {
+        List path = new ArrayList();
+        pathSumHelper(root,target,path);
+        return result;
+    }
+
+
+    private void pathSumHelper(TreeNode root, int target, List<Integer> path) {
+        if (null == root) {
+            return;
+        }
+
+        target = target - root.val;
+        path.add(root.val);
+
+        if (null == root.left && null == root.right) {
+            if (0 == target) {
+                List temp = new ArrayList(path);
+                result.add(temp);
+            }
+        }
+
+
+        pathSumHelper(root.left, target, path);
+        pathSumHelper(root.right, target, path);
+
+        target = target + root.val;
+        path.remove(path.size() -1);
+        
+
+    }
+}
+
+474 LCA parent
+public class Solution {
+
+    public ParentTreeNode lowestCommonAncestorII(ParentTreeNode root, ParentTreeNode A, ParentTreeNode B) {
+        HashSet<ParentTreeNode> set = new HashSet();
+        while (null != A) {
+            set.add(A);
+            A = A.parent;
+        }
+
+        while (null != B) {
+            if (!set.add(B)) {
+                return B;
+            }
+            B = B.parent;
+        }
+
+        return null;
+
+    }
+}
+
+
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (null == root || p == root || q == root) {
+            return root;
+        }
+
+        TreeNode l = lowestCommonAncestor(root.left,p,q);
+        TreeNode r = lowestCommonAncestor(root.right,p,q);
+
+        if (null != l && null != r) {
+            return root;
+        }
+        if (null != l) {
+            return l;
+        }
+        if (null != r) {
+            return r;
+        }
+        return null;
+    }
+}
+
+470
+469
+
+
+{}
+{1,2,3,4,5,6,7}
+
+
+public class Solution {
+    public boolean isIdentical(TreeNode p, TreeNode q) {
+        if (null == p && null == p) {
+            return true;
+        }
+        if (null == p) {
+            return false;
+        }
+        if (null == q) {
+            return false;
+        }
+
+        boolean l = isIdentical(p.left,q.left);
+        boolean r = isIdentical(p.right,q.right);
+
+        return l && r && (p.val == q.val);
+    }
+}
+
+
+
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (null == q && null == p) {
+            return true;
+        }
+        if (null == q || null == p) {
+            return false;
+        }
+        
+        boolean l = isSameTree(p.left,q.left);
+        boolean r = isSameTree(p.right,q.right);
+
+        return l && r && (p.val == q.val);
+
+    }
+}
+
+468
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        return symHelper(root,root);
+    }
+
+    private boolean symHelper(TreeNode left,TreeNode right) {
+        if (null == left && null == right) {
+            return true;
+        }
+        if (null == left || null == right) {
+            return false;
+        }
+
+        boolean l = symHelper(left.left,right.right);
+        boolean r = symHelper(left.right,right.left);
+
+        return l && r && (left.val == right.val);
+    }
+}
+
+
+467
+155
+public class Solution {
+    public int minDepth(TreeNode root) {
+        if (null == root) {
+            return 0;
+        }
+
+        int l = minDepth(root.left);
+        int r = minDepth(root.right);
+
+        if (null == root.left) {
+            return r + 1;
+        } else if (null == root.right) {
+            return l + 1;
+        } else {
+            return Math.min(l,r) + 1;
+        } 
+    }
+}
+
+
+85
+68
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack = new Stack();
+        List result = new ArrayList();
+        stack.push(root.left);
+
+        while(!stack.isEmpty()) {
+            TreeNode temp = stack.pop();
+            result.add(temp.val);
+
+        }
+    }
+}
+
+
+
+67
+70
+71
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List reuslt = new ArrayList();
+        Queue queue = new LinkedList();
+        queue.offer(root);
+        int level = 0;
+        while(!queue.isEmpty()) {
+            level++;
+            List temp = new ArrayList();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                temp.add(node.val);
+                if (null != node.left) {
+                    queue.add(node.left);
+                }
+                if (null != node.right) {
+                    queue.add(node.right);
+                }
+            }
+            if (level % 2 == 1){
+                temp.revers()
+            }
+        }
+    }
+}
+
+
+
+72
+73
+11
+7
+87
