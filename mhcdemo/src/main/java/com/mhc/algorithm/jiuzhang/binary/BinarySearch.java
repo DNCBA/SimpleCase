@@ -1,4 +1,4 @@
-package com.mhc.algorithm.jiuzhang;
+package com.mhc.algorithm.jiuzhang.binary;
 
 import org.junit.Assert;
 
@@ -56,15 +56,51 @@ public class BinarySearch {
     }
 
 
+    public static boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if (null == matrix || matrix.length == 0 || matrix[0].length == 0){
+            return false;
+        }
+        int xStart = 0;
+        int yStart = 0;
+        int xEnd = matrix.length;
+        int yEnd = matrix[0].length;
+        while (xStart < xEnd || yStart < yEnd) {
+            int xMid = xStart + (xEnd - xStart) / 2;
+            int yMid = yStart + (yEnd - yStart) / 2;
+            if (matrix[xMid][0] == target) {
+                return true;
+            } else if (matrix[xMid][0] > target) {
+                xEnd = xMid - 1;
+            } else {
+                xStart = xMid + 1;
+            }
+
+            if (matrix[0][yMid] == target) {
+                return true;
+            } else if (matrix[0][yMid] > target) {
+                yEnd = yMid - 1;
+            } else {
+                yStart = yMid + 1;
+            }
+        }
+
+        if(matrix[xStart][yStart] == target) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 3, 3, 3};
-        int target = 3;
-        int result = binarySearchFindFirst(nums, target);
-        Assert.assertEquals(2, result);
-        System.out.println(result);
-        result = binarySearchFindLast(nums, target);
-        Assert.assertEquals(5, result);
-        System.out.println(result);
+        int[][] nums = {
+                {1,4,7,11,15},
+                {2,5,8,12,19},
+                {3,6,9,16,22},
+                {10,13,14,17,24},
+                {18,21,23,26,30}};
+        int target = 5;
+        findNumberIn2DArray(nums,target);
     }
 
 

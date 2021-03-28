@@ -1,4 +1,4 @@
-package com.mhc.algorithm.jiuzhang;
+package com.mhc.algorithm.jiuzhang.binary;
 
 import org.junit.Assert;
 
