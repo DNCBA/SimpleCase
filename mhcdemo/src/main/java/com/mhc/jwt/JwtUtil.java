@@ -16,7 +16,7 @@ public class JwtUtil {
     public static final String JWT_TOKEN_FIELD_STORE_USER_NAME = "username";
     public static final Long TOKEN_EXPIRES = 60 * 60 * 1000L;
     public static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET);
-    public static final JWTVerifier JWTVERIFIER = JWT.require(ALGORITHM).build();
+    public static final JWTVerifier JWTVERIFIER = JWT.require(ALGORITHM).withIssuer(ISSUER).build();
 
     /**
      * parse jwt token.
