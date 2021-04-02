@@ -1,0 +1,26 @@
+93
+public class Solution {
+    /**
+     * lru design
+     * @param operators int整型二维数组 the ops
+     * @param k int整型 the k
+     * @return int整型一维数组
+     */
+    public int[] LRU (int[][] operators, int k) {
+        // write code here
+    }
+
+
+
+    class ListNode {
+        int key;
+        int val;
+        ListNode pre;
+        ListNode next;
+
+        public ListNode (int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+}

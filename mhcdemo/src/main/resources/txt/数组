@@ -1,0 +1,63 @@
+138
+public class Solution {
+    public List<Integer> subarraySum(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j < nums.length; j++) {
+                if (0 == sum(nums, i, j)) {
+                    return Arrays.asList(i, j);
+                }
+            }
+        }
+        return new ArrayList();
+    }
+
+    private int sum(int[] nums, int start, int end) {
+        int sum = 0;
+        for (int i = start; i <= end; i++) {
+            sum = sum + nums[i];
+        }
+        return sum;
+    }
+}
+
+
+
+public class Solution {
+    public List<Integer> subarraySum(int[] nums) {
+        int[] temp = new int[nums.length];
+        temp[0] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            temp[i] = temp[i - 1] + nums[i];
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = i + 1; j < temp.length; j++) {
+                if (temp[i] == temp[j]) {
+                    return Arrays.asList(i, j);
+                }
+            }
+        }
+        return new ArrayList();
+
+    }
+}
+
+
+
+
+64
+
+41
+
+148
+
+139
+
+59
+
+42
+
+31
+
+65
+
