@@ -27,26 +27,36 @@ import java.util.stream.Collectors;
  */
 public class WordSeg {
 
-  private static final String REPORT_2019 = "/Users/leyan/Desktop/x-education/SimpleCase/mhcdemo/src/main/resources/sourcedata/2019.txt";
-  private static final String REPORT_2018 = "/Users/leyan/Desktop/x-education/SimpleCase/mhcdemo/src/main/resources/sourcedata/2018.txt";
-  private static final String REPORT_2017 = "/Users/leyan/Desktop/x-education/SimpleCase/mhcdemo/src/main/resources/sourcedata/2017.txt";
-  private static final String REPORT_2016 = "/Users/leyan/Desktop/x-education/SimpleCase/mhcdemo/src/main/resources/sourcedata/2016.txt";
-  private static final Long REPORT_WORD_LIMIT = 100000L;
+  private static final String REPORT_2020 = ClassLoader.getSystemClassLoader().getResource("sourcedata/2020.txt").getFile();
+  private static final String REPORT_2019 = ClassLoader.getSystemClassLoader().getResource("sourcedata/2019.txt").getFile();
+  private static final String REPORT_2018 = ClassLoader.getSystemClassLoader().getResource("sourcedata/2018.txt").getFile();
+  private static final String REPORT_2017 = ClassLoader.getSystemClassLoader().getResource("sourcedata/2017.txt").getFile();
+  private static final String REPORT_2016 = ClassLoader.getSystemClassLoader().getResource("sourcedata/2016.txt").getFile();
+  private static final Long REPORT_WORD_LIMIT = 200L;
 
 
   public static void main(String[] args) throws Exception {
     Set<String> wordSet = new HashSet<>();
+    HashMap<String, List<String>> wordMap = new HashMap<>();
     HashMap<String, List<String>> newWordMap = new HashMap<>();
     List<WordCountDTO> wordCountDTO_2016 = anaylizeReportByWord(REPORT_2016, REPORT_WORD_LIMIT);
+    wordMap.put("2016",wordCountDTO_2016.stream().map(WordCountDTO::getText).collect(Collectors.toList()));
     newWordMap.put("2016",processKeyWord(wordSet,wordCountDTO_2016));
     List<WordCountDTO> wordCountDTO_2017 = anaylizeReportByWord(REPORT_2017, REPORT_WORD_LIMIT);
+    wordMap.put("2017",wordCountDTO_2017.stream().map(WordCountDTO::getText).collect(Collectors.toList()));
     newWordMap.put("2017",processKeyWord(wordSet,wordCountDTO_2017));
     List<WordCountDTO> wordCountDTO_2018 = anaylizeReportByWord(REPORT_2018, REPORT_WORD_LIMIT);
+    wordMap.put("2018",wordCountDTO_2018.stream().map(WordCountDTO::getText).collect(Collectors.toList()));
     newWordMap.put("2018",processKeyWord(wordSet,wordCountDTO_2018));
     List<WordCountDTO> wordCountDTO_2019 = anaylizeReportByWord(REPORT_2019, REPORT_WORD_LIMIT);
+    wordMap.put("2019",wordCountDTO_2019.stream().map(WordCountDTO::getText).collect(Collectors.toList()));
     newWordMap.put("2019",processKeyWord(wordSet,wordCountDTO_2019));
+    List<WordCountDTO> wordCountDTO_2020 = anaylizeReportByWord(REPORT_2020, REPORT_WORD_LIMIT);
+    wordMap.put("2020",wordCountDTO_2020.stream().map(WordCountDTO::getText).collect(Collectors.toList()));
+    newWordMap.put("2020",processKeyWord(wordSet,wordCountDTO_2020));
     TimeUnit.SECONDS.sleep(5);
     System.out.println("-------------->\r\n"+JSON.toJSONString(wordSet));
+    System.out.println("-------------->\r\n"+JSON.toJSONString(wordMap));
     System.out.println("-------------->\r\n"+JSON.toJSONString(newWordMap));
 
   }

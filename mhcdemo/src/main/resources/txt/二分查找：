@@ -6,8 +6,8 @@ TemplateA:
 60
 
 
-class Solution {
-    public int searchInsert(int[] nums, int target) {
+class Solution {
+    public int searchInsert(int[] nums, int target) {
         if (null == nums || nums.length == 0) {
             return 0;
         }
@@ -32,7 +32,7 @@ class Solution {
         } else {
             return end;
         }
-    }
+    }
 }
 
 
@@ -49,8 +49,8 @@ class Solution {
 
 
 
-class Solution {
-    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+class Solution {
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
 	if (null == matrix || matrix.length == 0) {
 		return false;
 	}
@@ -66,13 +66,13 @@ class Solution {
 		}
 	}
 	return false;
-    }
+    }
 }
 
 
 14
-class Solution {
-    public int search(int[] nums, int target) {
+class Solution {
+    public int search(int[] nums, int target) {
         if (null == nums || nums.length == 0) {
             return -1;
         }
@@ -94,7 +94,7 @@ class Solution {
         } else {
             return -1;
         }
-    }
+    }
 }
 
 
