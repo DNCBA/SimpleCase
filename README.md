@@ -54,6 +54,8 @@
    > com.mhc.mockito
 * 自实现工具类
    > com.mhc.utils
+* jmx链接
+   > com.mhc.jmx
 
 
     
