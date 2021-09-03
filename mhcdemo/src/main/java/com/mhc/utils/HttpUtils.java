@@ -45,10 +45,10 @@ public class HttpUtils {
     Response response = null;
     try {
       OkHttpClient proxyClient =null;
-      if (proxy) {
-        Proxy proxyConfig = ProxyProviderUtils.RandomProxy();
-        proxyClient = httpClient.newBuilder().proxy(proxyConfig).build();
-      }
+//      if (proxy) {
+//        Proxy proxyConfig = ProxyProviderUtils.RandomProxy();
+//        proxyClient = httpClient.newBuilder().proxy(proxyConfig).build();
+//      }
       Request.Builder builder = requestBuilder.url(url);
       if (StringUtils.isNotBlank(body)) {
         requestBody = RequestBody.create(MEDIA_TYPE_JSON, body);
@@ -60,7 +60,7 @@ public class HttpUtils {
       }
       request = builder.build();
       LOGGER.debug("HttpUtils doExecute start rep:{}", request);
-      if (proxy && null != proxy){
+      if (proxy && null != proxyClient){
         response = proxyClient.newCall(request).execute();
       }else {
         response = httpClient.newCall(request).execute();
@@ -83,6 +83,7 @@ public class HttpUtils {
         result = new HttpUtilsResponse();
         result.setCode(response.code());
         result.setStringBody(response.body().string());
+        result.setHeads(response.headers());
       }
     } catch (Exception e) {
       LOGGER.error("HttpUtils executeString error url:{},method:{}", url, method, e);
@@ -98,6 +99,7 @@ public class HttpUtils {
         Response response = optional.get();
         result.setCode(response.code());
         result.setBytesBody(response.body().bytes());
+        result.setHeads(response.headers());
       }
     } catch (Exception e) {
       LOGGER.error("HttpUtils executeByte error url:{},method:{}", url, method, e);
@@ -113,6 +115,11 @@ public class HttpUtils {
   public static Optional<HttpUtilsResponse> get(String url
           , Map<String, String> headerMap, Boolean proxy) {
     return executeString(url, GET, null, headerMap, proxy);
+  }
+
+  public static Optional<HttpUtilsResponse> getByBytes(String url
+          , Map<String, String> headerMap, Boolean proxy) {
+    return executeBytes(url, GET, null, headerMap, proxy);
   }
 
   public static Optional<HttpUtilsResponse> post(String url, String body) {
@@ -148,6 +155,7 @@ public class HttpUtils {
     Integer code;
     String StringBody;
     byte[] bytesBody;
+    Headers heads;
   }
 
 
