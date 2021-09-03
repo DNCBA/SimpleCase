@@ -25,6 +25,7 @@ public class JdService {
         //获取页面登录的 cookie
         HttpUtils.get(UrlUtils.LOGIN_ASPX).ifPresent(this::setSession);
         //获取登录的二维码
+        reqHeaders.put("referer", "https://passport.jd.com/new/login.aspx");
         HttpUtils.getByBytes(UrlUtils.LOGIN_QR_SHOW, reqHeaders, false).ifPresent(resp -> {
             setSession(resp);
             try {
@@ -38,7 +39,7 @@ public class JdService {
         });
         //判断登录状态
         while (true) {
-
+            reqHeaders.put("referer", "https://passport.jd.com/new/login.aspx");
             String url = String.format(UrlUtils.LOGIN_QR_CHECK, UrlUtils.getJQuery(), UrlUtils.getToken(reqHeaders.get(UrlUtils.COOKIE)), UrlUtils.getTime());
             HttpUtils.get(url).ifPresent(resp -> {
                 LOGGER.info(resp.getStringBody());
