@@ -55,7 +55,7 @@ public class JdService {
             loginStatus = "QR";
         }
         headers.put("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-        headers.put("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36");
+        headers.put("user-agent", "jdapp;android;10.1.0;9;8363939393430333031393530313-43D2030303166653232633737316;network/wifi;model/Lenovo L78011;addressid/1075180153;aid/e13d41901062c33d;oaid/;osVer/28;appBuild/89568;partner/xiaomi001;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 9; Lenovo L78011 Build/PKQ1.181007.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045709 Mobile Safari/537.36");
     }
 
     /**
@@ -68,7 +68,7 @@ public class JdService {
                 if (Objects.equals("QR", loginStatus)) {
                     qrLogin();
                 }
-                basicInfoLoad();
+                getUserInfo();
                 break;
             } catch (IllegalArgumentException e) {
                 LOGGER.error("exception when login", e);
@@ -132,7 +132,7 @@ public class JdService {
                     //访问提交订单
                     seckillSubmit(skuId);
                 }
-            } catch (Exception e) {
+            } catch (RetryException e) {
                 LOGGER.error("exception when seckill", e);
             }
         }
@@ -159,23 +159,6 @@ public class JdService {
         this.jdHttpUtils = jdHttpUtils;
     }
 
-    /**
-     * 登录成功后加载用户基础信息.
-     */
-    private void basicInfoLoad() {
-        MDC.put("subId", "BASICINFOLOAD");
-        //校验登录状态
-        headers.put("Referer", "<script>window.location.href='https://passport.jd.com/uc/login?ReturnUrl=http%3A%2F%2Forder.jd.com%2Fcenter%2Flist.action'</script>");
-//        while (true) {
-//            JdHttpUtils.HttpUtilsResponse resp = jdHttpUtils.get(String.format(UrlUtils.LOGIN_STATUS_CHECK, UrlUtils.getTime()), headers);
-//            if (Objects.equals(200, resp.getCode()) && resp.getStringBody().contains("<title>我的京东--我的订单</title>")) {
-//                LOGGER.debug("login status is success! ");
-//                break;
-//            }
-//        }
-        //加载用户信息
-        getUserInfo();
-    }
 
     /**
      * 二维码登录.
@@ -240,6 +223,7 @@ public class JdService {
      * 获取基础信息.
      */
     private void getUserInfo() {
+        MDC.put("subId", "GETUSERINFO");
         headers.put("Referer", "https://order.jd.com/center/list.action");
         while (true) {
             String userInfoUrl = String.format(UrlUtils.BASIC_USER_INFO, UrlUtils.getJQuery(), UrlUtils.getTime());
@@ -247,9 +231,13 @@ public class JdService {
             String userInfo = userInfoResp.getStringBody();
             if (userInfo.startsWith("jQuery")) {
                 JSONObject userInfoObject = JSON.parseObject(userInfo.replaceAll("jQuery.+\\(", "").replaceAll("\\)", ""));
-                nickName = userInfoObject.getString("nickName");
-                LOGGER.info("getUserInfo: {}.", nickName);
-                break;
+                if (StringUtils.isNotEmpty(userInfoObject.getString("nickName"))) {
+                    nickName = userInfoObject.getString("nickName");
+                    LOGGER.info("getUserInfo: {}.", nickName);
+                    break;
+                } else {
+                    throw new IllegalStateException("登录状态不对");
+                }
             }
             LOGGER.warn("getUserInfo retry");
         }
@@ -265,7 +253,7 @@ public class JdService {
                 String itemUrl = String.format(UrlUtils.BASIC_ITEM_INFO, skuId);
                 JdHttpUtils.HttpUtilsResponse itemResp = jdHttpUtils.get(itemUrl, headers);
                 String stringBody = itemResp.getStringBody();
-                if (stringBody.startsWith("<!DOCTYPE HTML>")) {
+                if (stringBody.startsWith("<!DOCTYPE HTML>") || stringBody.startsWith("<!--cs start-->")) {
                     Matcher matcher = pattern.matcher(stringBody);
                     if (matcher.find()) {
                         String itemName = matcher.group();
@@ -365,7 +353,6 @@ public class JdService {
                 }
                 //抢购失败
                 LOGGER.info("********* 抢购失败了: {}", submitRespObject);
-                break;
             }
         }
     }
@@ -378,7 +365,7 @@ public class JdService {
         headers.put("Host", "marathon.jd.com");
         headers.put("Referer", String.format("https://item.jd.com/%s.html", skuId));
         while (true) {
-            JdHttpUtils.HttpUtilsResponse checkoutResp = jdHttpUtils.get(String.format(UrlUtils.SECKILL_CHECKOUT, skuId, jdConfig.getOrDefault("count", 1), UrlUtils.getTime()), headers);
+            JdHttpUtils.HttpUtilsResponse checkoutResp = jdHttpUtils.get(String.format(UrlUtils.SECKILL_CHECKOUT, skuId, jdConfig.getOrDefault("count", 1), UrlUtils.getTime()), headers, false);
             LOGGER.debug("seckillCheckout checkoutResp: {}", checkoutResp.getStringBody());
             if (Objects.equals(200, checkoutResp.getCode())) {
                 if (checkoutResp.getStringBody().contains("填写订单")) {
@@ -422,10 +409,9 @@ public class JdService {
         while (true) {
             headers.put("Referer", String.format("https://item.jd.com/%s.html", skuId));
             headers.put("Host", "marathon.jd.com");
-            //fixme 访问失效!!!
-            JdHttpUtils.HttpUtilsResponse seckillUrlResp = jdHttpUtils.get(seckillUrl, headers);
+            JdHttpUtils.HttpUtilsResponse seckillUrlResp = jdHttpUtils.get(seckillUrl, headers, false);
             LOGGER.debug("showBtn seckillUrlResp: {}", seckillUrlResp.getStringBody());
-            if (Objects.equals(200, seckillUrlResp.getCode())) {
+            if (Objects.equals(302, seckillUrlResp.getCode())) {
                 LOGGER.info("seckillUrl request success");
                 break;
             }
@@ -435,7 +421,7 @@ public class JdService {
     }
 
     public void test() {
-        JdHttpUtils.HttpUtilsResponse response = jdHttpUtils.get("https://un.m.jd.com/cgi-bin/app/appjmp?tokenKey=AAEAMB0VSuXpyMCtF2UNKQ-Jyxi3SIbRpibf0S2gL9vgyNPF5zbYH94gSBf3-RSi4W6dMg1&to=https://divide.jd.com/user_routing?skuId=100012043978&from=app&lbs={\"lat\":\"34.214244\",\"lng\":\"108.88742\",\"provinceId\":\"27\",\"cityId\":\"2376\",\"districtId\":\"4343\",\"provinceName\":\"陕西\",\"cityName\":\"西安市\",\"districtName\":\"雁塔区\"}", headers);
+        JdHttpUtils.HttpUtilsResponse response = jdHttpUtils.get("https://marathon.jd.com/m/captcha.html?sid=6c41a56064e10eea6190cdfabbeab2ew&lat=34.214244&mid=pdX80LL0GvlKhjtl7d4hn3lRSQ8AZovTloEfVbzrnbE&from=app&skuId=100012043978&lng=108.88742", headers);
         String stringBody = response.getStringBody();
         Headers heads = response.getHeads();
         LOGGER.info("stringBody: {}", stringBody);

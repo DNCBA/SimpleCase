@@ -7,6 +7,8 @@ import java.util.List;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.testng.annotations.Test;
 
 /**
@@ -28,7 +30,19 @@ public class JDBC {
         simpleInsert();
         simpleFind();
 
+        //使用jdbctemplate
+        testJdbcTemplate();
 
+
+    }
+
+    @Test
+    public void testJdbcTemplate() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(JdbcTemplateConf.class);
+        JdbcTemplate jdbcTemplate = context.getBean(JdbcTemplate.class);
+        Integer integer = jdbcTemplate.queryForObject("select count(*) from alarm_definition  where tags like ? ", Integer.class, "\"cluster\":[\"*\"]");
+//        Integer integer = jdbcTemplate.queryForObject("select count(*) from alarm_definition  where tags like 1 and updatexml(1,concat(0x7e,database(),0x7e,user(),0x7e,@@datadir),1)  ", Integer.class );
+        System.out.println(integer);
     }
 
 

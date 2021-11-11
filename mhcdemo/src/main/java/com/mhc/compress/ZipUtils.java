@@ -1,11 +1,20 @@
 package com.mhc.compress;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +23,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -22,7 +32,50 @@ import java.util.zip.ZipOutputStream;
  */
 public class ZipUtils {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(ZipUtils.class);
+
   private ZipUtils() {}
+
+
+  public static void zipFiles(List<MutablePair<String, byte[]>> bytes)  throws IOException  {
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
+    for (MutablePair<String, byte[]> aByte : bytes) {
+      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(aByte.getRight());
+      ZipEntry zipEntry = new ZipEntry(aByte.getLeft());
+      zipOutputStream.putNextEntry(zipEntry);
+      copy(zipOutputStream, byteArrayInputStream);
+      byteArrayInputStream.close();
+    }
+    zipOutputStream.finish();
+    File file = new File("test.zip");
+    FileOutputStream fileOutputStream = new FileOutputStream(file);
+    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+    IOUtils.copy(byteArrayInputStream, fileOutputStream);
+    LOGGER.info("result path: {}", file.getAbsolutePath());
+  }
+
+
+
+  public static List<MutablePair<String, byte[]>> unZipFile()   throws IOException {
+    File file = new File("test.zip");
+    FileInputStream fileInputStream = new FileInputStream(file);
+    ZipInputStream zipInputStream = new ZipInputStream(fileInputStream);
+
+    List<MutablePair<String, byte[]>> result = new ArrayList<>();
+    ZipEntry entry = null;
+    while (null != (entry = zipInputStream.getNextEntry())) {
+      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+      copy(byteArrayOutputStream, zipInputStream);
+      byte[] bytes = byteArrayOutputStream.toByteArray();
+      result.add(MutablePair.of(entry.getName(), bytes));
+    }
+    return result;
+
+  }
+
+
+
 
   /**
    * @param resFiles 待压缩的文件列表
@@ -66,7 +119,7 @@ public class ZipUtils {
    * @param fileInputStream
    * @throws IOException
    */
-  private static void copy(ZipOutputStream zipOutputStream, FileInputStream fileInputStream)
+  private static void copy(OutputStream zipOutputStream, InputStream fileInputStream)
       throws IOException {
     Integer len = null;
     byte[] bytes = new byte[1024];
