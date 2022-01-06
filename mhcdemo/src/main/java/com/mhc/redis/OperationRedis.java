@@ -1,6 +1,12 @@
 package com.mhc.redis;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.api.StatefulRedisConnection;
+import io.lettuce.core.api.sync.RedisCommands;
+import io.lettuce.core.cluster.RedisClusterClient;
+import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
+import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,16 +23,61 @@ import java.util.HashMap;
 
 public class OperationRedis {
 
-    private static String host = "192.168.16.48";
+    private static String host = "127.0.0.1";
+    private static String url = "redis://localhost:6379";
+
 
     public static void main(String[] args) {
         try {
-            //testJedis();
-            testSpringDataRedis();
+//            testJedis();
+//            testSpringDataRedis();
+            testLettuce();
         }catch (Exception e){
             e.printStackTrace();
         }
 
+    }
+
+    private static void testLettuce() {
+//        cluster();
+
+
+        standonly();
+
+
+    }
+
+    private static void standonly() {
+        RedisClient redisClient = RedisClient.create(url);
+        StatefulRedisConnection<String, String> connection = redisClient.connect();
+
+
+        RedisCommands<String, String> redisCommands = connection.sync();
+
+//        redisCommands.auth("a");
+
+
+        redisCommands.set("standonly","standonly");
+
+
+        System.out.println("Connected to Redis");
+
+        connection.close();
+        redisClient.shutdown();
+    }
+
+    private static void cluster() {
+        RedisClusterClient redisClient = RedisClusterClient.create(url);
+
+        StatefulRedisClusterConnection<String, String> connection = redisClient.connect();
+        RedisAdvancedClusterCommands<String, String> clusterCommands = connection.sync();
+
+        clusterCommands.set("cluster", "cluster");
+
+        System.out.println("Connected to Redis");
+
+        connection.close();
+        redisClient.shutdown();
     }
 
 
@@ -59,11 +110,12 @@ public class OperationRedis {
     private static void testJedis() throws Exception {
 
         //直连
-        Jedis jedis = new Jedis(host);
+        Jedis jedis = new Jedis(host, 6379);
         jedisOperation(jedis);
         Pipeline pipelined = jedis.pipelined();
         pipelined.set("gxc","gxc");
-        String gxc = new Jedis(host).get("gxc");
+        String gxc = new Jedis(host,6379).get("gxc");
+        System.out.println(gxc);
         pipelined.sync();
 
         //链接池
@@ -84,7 +136,9 @@ public class OperationRedis {
         String result;//jedis.auth("");
         result = jedis.set("aa", "bbb");
         result = jedis.get("aa");
+        System.out.println(result);
         result = String.valueOf(jedis.del("aa"));
+        System.out.println(result);
     }
 
 

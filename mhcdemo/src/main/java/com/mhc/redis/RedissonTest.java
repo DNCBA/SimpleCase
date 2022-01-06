@@ -6,6 +6,7 @@ import org.redisson.api.RBucket;
 import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.codec.StringCodec;
 import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class RedissonTest {
     @BeforeTest
     public void initConfig() {
         Config config = new Config();
-        config.setCodec(new JsonJacksonCodec());
+        config.setCodec(new StringCodec());
         config.useSingleServer().setAddress("redis://127.0.0.1:6379");
 
         this.redissonClient = Redisson.create(config);
@@ -65,6 +66,7 @@ public class RedissonTest {
 
         TimeUnit.MINUTES.sleep(5);
     }
+
 
 
     @Test
