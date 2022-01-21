@@ -62,6 +62,24 @@ public class CacheTest {
 
     }
 
+    @Test
+    public void  cache() throws Exception {
+        Cache<String, Object> cache = CacheBuilder
+                .newBuilder().maximumSize(1000).expireAfterWrite(30, TimeUnit.SECONDS).build();
+
+
+        cache.put("aaa","bbb");
+        LOGGER.info("add data: {}, {}", "aaa", "bbb");
+        while (true) {
+            TimeUnit.SECONDS.sleep(15);
+            Object aaa = cache.get("aaa",() -> "ccc");
+            LOGGER.info("get data: {}, {}", "aaa", aaa);
+            aaa = cache.get("bbb", ()->"ddd");
+            LOGGER.info("get data: {}, {}", "bbb", aaa);
+        }
+
+    }
+
 
 
 
