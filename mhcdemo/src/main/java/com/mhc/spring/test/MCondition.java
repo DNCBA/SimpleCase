@@ -15,7 +15,7 @@ public class MCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        System.out.println(runmode);
-        return true;
+        System.out.println("MCondition: " + runmode);
+        return false;
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Primary
-@Conditional(MCondition.class)
 public class ServiceBImpl extends ServiceAImpl {
 
     @Override
