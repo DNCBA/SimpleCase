@@ -11,6 +11,5 @@ import java.lang.annotation.*;
 @Retention(value = RetentionPolicy.RUNTIME )
 @Documented
 @Import(BeanSelector.class)
-@Conditional(MCondition.class)
 public @interface EnableBean {
 }
