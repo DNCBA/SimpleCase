@@ -56,7 +56,8 @@
    > com.mhc.utils
 * jmx链接
    > com.mhc.jmx
-
+* akka-actor
+  > com.mhc.actor
 
     
     
