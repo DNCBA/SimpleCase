@@ -4,18 +4,17 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import com.typesafe.config.ConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Receiver extends AbstractActor {
 
-    public static void main(String[] args) {
-        ActorSystem actorSystem = ActorSystem.create("ydpost");
+    public static void start(String config, String name) {
+        ActorSystem actorSystem = ActorSystem.create("ydpost", ConfigFactory.load(config));
         //创建两个 收件者
-        ActorRef receiver1 = actorSystem.actorOf(Receiver.props(), "receiver1");
-        ActorRef receiver2 = actorSystem.actorOf(Receiver.props(), "receiver2");
-
-
+        ActorRef receiver = actorSystem.actorOf(Receiver.props(), name);
+        LOGGER.info("Receiver start : {}", receiver);
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Receiver.class);
@@ -35,7 +34,7 @@ public class Receiver extends AbstractActor {
     public void onMessage(Message message) {
         LOGGER.info("=======> {} receive message {} from {} ",   self().path().name(), message, sender().path().name());
 
-        getContext().actorSelection("akka://ydpost/user/poster").tell("receive", self());
+        getContext().actorSelection("akka://ydpost@127.0.0.1:25521/user/poster").tell("receive", self());
 //        sender().tell("receive", self());
     }
 
